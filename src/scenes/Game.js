@@ -1,5 +1,9 @@
 import Phaser from 'phaser';
 import config from '../config';
+import Player from '../elements/Player';
+
+let player;
+let cursors;
 
 export default class extends Phaser.Scene {
   constructor() {
@@ -11,10 +15,27 @@ export default class extends Phaser.Scene {
   }
 
   create() {
-    this.add.tileSprite(0, 0, config.world_bounds.end.x, config.world_bounds.end.y, 'background');
+    this.add.tileSprite(...config.world_bounds, 'background');
+    player = new Player(this);
+    player.spawn(400, 300, 100);
+    cursors = this.input.keyboard.createCursorKeys();
+
+    this.cameras.main.setSize(config.width, config.height);
+    this.cameras.main.startFollow(player.circle);
+    this.cameras.main.setBounds(...config.world_bounds, true, true, true, true);
   }
 
   update() {
+    const moveStep = 20;
 
+    if (cursors.up.isDown) {
+      player.move(0, -moveStep);
+    } else if (cursors.down.isDown) {
+      player.move(0, moveStep);
+    } else if (cursors.left.isDown) {
+      player.move(-moveStep, 0);
+    } else if (cursors.right.isDown) {
+      player.move(moveStep, 0);
+    }
   }
 }

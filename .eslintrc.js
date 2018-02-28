@@ -24,5 +24,6 @@ module.exports = {
     "strict": 0,
     "arrow-parens": ["error", "always"],
     "no-bitwise": ["error", { "allow": ["~"] }],
+    'no-throw-literal': 0,
   },
 };
