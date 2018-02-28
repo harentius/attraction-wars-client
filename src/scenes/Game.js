@@ -15,14 +15,14 @@ export default class extends Phaser.Scene {
   }
 
   create() {
-    this.add.tileSprite(...config.world_bounds, 'background');
+    this.add.tileSprite(...config.worldBounds, 'background');
     player = new Player(this);
     player.spawn(400, 300, 100);
     cursors = this.input.keyboard.createCursorKeys();
 
     this.cameras.main.setSize(config.width, config.height);
     this.cameras.main.startFollow(player.circle);
-    this.cameras.main.setBounds(...config.world_bounds, true, true, true, true);
+    this.cameras.main.setBounds(...config.worldBounds, true, true, true, true);
   }
 
   update() {

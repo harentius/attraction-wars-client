@@ -5,5 +5,5 @@ export default {
   width: window.innerWidth,
   height: window.innerHeight,
   localStorageName: 'attraction-wars',
-  world_bounds: [0, 0, 20000, 20000],
+  worldBounds: [0, 0, 20000, 20000],
 };
