@@ -25,5 +25,6 @@ module.exports = {
     "arrow-parens": ["error", "always"],
     "no-bitwise": ["error", { "allow": ["~"] }],
     'no-throw-literal': 0,
+    "semi-style": 0,
   },
 };

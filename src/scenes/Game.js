@@ -7,6 +7,8 @@ import getOtherPlayersData from '../player/data-provider/getOtherPlayersData';
 let player;
 const otherPlayers = [];
 let cursors;
+let isAccelerating = false;
+let accelerationValue = { dAx: 0, dAy: 0 };
 
 export default class extends Phaser.Scene {
   constructor() {
@@ -18,7 +20,7 @@ export default class extends Phaser.Scene {
   }
 
   create() {
-    this.add.tileSprite(...config.worldBounds, 'background');
+    this.add.tileSprite(config.worldBounds[0], config.worldBounds[1], 2 * config.worldBounds[2], 2 * config.worldBounds[3], 'background');
 
     player = new Player(this);
     player.spawn(getPlayerData());
@@ -37,16 +39,33 @@ export default class extends Phaser.Scene {
   }
 
   update() {
-    const moveStep = 20;
+    const keyPressDa = 0.2;
+    player.updateData();
 
     if (cursors.up.isDown) {
-      player.move(0, -moveStep);
+      accelerationValue = { dAx: 0, dAy: -keyPressDa };
     } else if (cursors.down.isDown) {
-      player.move(0, moveStep);
+      accelerationValue = { dAx: 0, dAy: keyPressDa };
     } else if (cursors.left.isDown) {
-      player.move(-moveStep, 0);
+      accelerationValue = { dAx: -keyPressDa, dAy: 0 };
     } else if (cursors.right.isDown) {
-      player.move(moveStep, 0);
+      accelerationValue = { dAx: keyPressDa, dAy: 0 };
+    }
+
+    const isAcceleratingKeyPress = cursors.up.isDown
+      || cursors.down.isDown
+      || cursors.left.isDown
+      || cursors.right.isDown
+    ;
+
+    if (isAcceleratingKeyPress && !isAccelerating) {
+      isAccelerating = true;
+      player.accelerate(accelerationValue);
+    } else if (isAccelerating) {
+      // Stop acceleration by inverting acceleration
+      isAccelerating = false;
+      accelerationValue = { dAx: accelerationValue.dAx * -1, dAy: accelerationValue.dAy * -1 };
+      player.accelerate(accelerationValue);
     }
   }
 }
