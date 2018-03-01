@@ -5,10 +5,12 @@ export default class {
     this.scene = scene;
     this.graphics = null;
     this.circle = null;
+    this.playerData = null;
   }
 
-  spawn(x, y, r) {
-    this.circle = new Phaser.Geom.Circle(x, y, r);
+  spawn(playerData) {
+    this.playerData = playerData;
+    this.circle = new Phaser.Geom.Circle(playerData.x, playerData.y, playerData.r);
     this.graphics = this.scene.add.graphics({ fillStyle: { color: 0x303331 } });
     this.graphics.fillCircleShape(this.circle);
   }

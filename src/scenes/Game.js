@@ -1,8 +1,11 @@
 import Phaser from 'phaser';
 import config from '../config';
-import Player from '../elements/Player';
+import Player from '../player/Player';
+import getPlayerData from '../player/data-provider/getPlayerData';
+import getOtherPlayersData from '../player/data-provider/getOtherPlayersData';
 
 let player;
+const otherPlayers = [];
 let cursors;
 
 export default class extends Phaser.Scene {
@@ -16,8 +19,16 @@ export default class extends Phaser.Scene {
 
   create() {
     this.add.tileSprite(...config.worldBounds, 'background');
+
     player = new Player(this);
-    player.spawn(400, 300, 100);
+    player.spawn(getPlayerData());
+
+    getOtherPlayersData().forEach((e) => {
+      const otherPlayer = new Player(this);
+      otherPlayer.spawn(e);
+      otherPlayers.push(otherPlayer);
+    });
+
     cursors = this.input.keyboard.createCursorKeys();
 
     this.cameras.main.setSize(config.width, config.height);
