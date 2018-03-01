@@ -39,8 +39,12 @@ export default class extends Phaser.Scene {
   }
 
   update() {
-    const keyPressDa = 0.2;
     player.updateData();
+    this._accelerateIfInput();
+  }
+
+  _accelerateIfInput() {
+    const keyPressDa = 0.2;
 
     if (cursors.up.isDown) {
       accelerationValue = { dAx: 0, dAy: -keyPressDa };
