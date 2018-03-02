@@ -30,7 +30,7 @@ export default class {
     this.playerData.x += this.playerData.vX;
     this.playerData.y += this.playerData.vY;
 
-    this._checkBoundCollizions();
+    this._checkBoundCollisions();
     this._redraw();
   }
 
@@ -41,7 +41,7 @@ export default class {
     this.graphics.fillCircleShape(this.circle);
   }
 
-  _checkBoundCollizions() {
+  _checkBoundCollisions() {
     if (
       (this.playerData.x < (config.worldBounds[0] + this.playerData.r))
         ||
