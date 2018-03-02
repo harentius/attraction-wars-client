@@ -22,14 +22,14 @@ export default class extends Phaser.Scene {
   create() {
     this.add.tileSprite(config.worldBounds[0], config.worldBounds[1], 2 * config.worldBounds[2], 2 * config.worldBounds[3], 'background');
 
-    player = new Player(this);
-    player.spawn(getPlayerData());
-
     getOtherPlayersData().forEach((e) => {
       const otherPlayer = new Player(this);
-      otherPlayer.spawn(e);
+      otherPlayer.spawn(e, +(Math.random() * 16777215));
       otherPlayers.push(otherPlayer);
     });
+
+    player = new Player(this);
+    player.spawn(getPlayerData());
 
     cursors = this.input.keyboard.createCursorKeys();
 
