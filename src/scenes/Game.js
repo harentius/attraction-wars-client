@@ -3,6 +3,7 @@ import config from '../config';
 import Player from '../player/Player';
 import getPlayerData from '../player/data-provider/getPlayerData';
 import getOtherPlayersData from '../player/data-provider/getOtherPlayersData';
+import { getDa } from '../player/Physics';
 
 let player;
 const otherPlayers = [];
@@ -40,6 +41,7 @@ export default class extends Phaser.Scene {
 
   update() {
     player.updateData();
+    player.accelerate(getDa(player, otherPlayers));
     this._accelerateIfInput();
   }
 
