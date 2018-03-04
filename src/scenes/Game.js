@@ -8,8 +8,7 @@ import { getDa } from '../player/Physics';
 let player;
 const otherPlayers = [];
 let cursors;
-let isAccelerating = false;
-let accelerationValue = { dAx: 0, dAy: 0 };
+let dv = { dAx: 0, dAy: 0 };
 
 export default class extends Phaser.Scene {
   constructor() {
@@ -41,21 +40,19 @@ export default class extends Phaser.Scene {
 
   update() {
     player.updateData();
-    player.accelerate(getDa(player, otherPlayers));
-    this._accelerateIfInput();
+    // player.accelerate(getDa(player, otherPlayers));
+    this._moveIfInput();
   }
 
-  _accelerateIfInput() {
-    const keyPressDa = 0.2;
-
+  _moveIfInput() {
     if (cursors.up.isDown) {
-      accelerationValue = { dAx: 0, dAy: -keyPressDa };
+      dv = { dVx: 0, dVy: -config.keyPressDv };
     } else if (cursors.down.isDown) {
-      accelerationValue = { dAx: 0, dAy: keyPressDa };
+      dv = { dVx: 0, dVy: config.keyPressDv };
     } else if (cursors.left.isDown) {
-      accelerationValue = { dAx: -keyPressDa, dAy: 0 };
+      dv = { dVx: -config.keyPressDv, dVy: 0 };
     } else if (cursors.right.isDown) {
-      accelerationValue = { dAx: keyPressDa, dAy: 0 };
+      dv = { dVx: config.keyPressDv, dVy: 0 };
     }
 
     const isAcceleratingKeyPress = cursors.up.isDown
@@ -64,14 +61,14 @@ export default class extends Phaser.Scene {
       || cursors.right.isDown
     ;
 
-    if (isAcceleratingKeyPress && !isAccelerating) {
-      isAccelerating = true;
-      player.accelerate(accelerationValue);
-    } else if (isAccelerating) {
-      // Stop acceleration by inverting acceleration
-      isAccelerating = false;
-      accelerationValue = { dAx: accelerationValue.dAx * -1, dAy: accelerationValue.dAy * -1 };
-      player.accelerate(accelerationValue);
+    if (isAcceleratingKeyPress) {
+      player.changeVelocity(dv);
+    } else if (!player.isStopped()) {
+      dv = {
+        dVx: config.releaseDv * (player.playerData.vX > 0 ? -1 : 1),
+        dVy: config.releaseDv * (player.playerData.vY > 0 ? -1 : 1),
+      };
+      player.changeVelocity(dv);
     }
   }
 }

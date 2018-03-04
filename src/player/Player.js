@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import config from '../config';
+import { getValueNotViolatingBounds } from '../utils';
 
 export default class {
   constructor(scene) {
@@ -7,6 +8,8 @@ export default class {
     this.graphics = null;
     this.circle = null;
     this.playerData = null;
+    this.maxSpeed = 10;
+    this.minSpeed = 0;
   }
 
   spawn(playerData, color = 0x303331) {
@@ -16,17 +19,28 @@ export default class {
     this.graphics.fillCircleShape(this.circle);
   }
 
-  accelerate({ dAx, dAy }) {
-    this.playerData.aX += dAx;
-    this.playerData.aY += dAy;
+  changeVelocity({ dVx, dVy }) {
+    const newVx = this.playerData.vX + dVx;
+    const newVy = this.playerData.vY + dVy;
+    this.playerData.vX = getValueNotViolatingBounds(newVx, -this.maxSpeed, this.maxSpeed);
+    this.playerData.vY = getValueNotViolatingBounds(newVy, -this.maxSpeed, this.maxSpeed);
+
+    if (Math.abs(this.playerData.vX) < config.releaseDv / 2) {
+      this.playerData.vX = this.minSpeed;
+    }
+
+    if (Math.abs(this.playerData.vY) < config.releaseDv / 2) {
+      this.playerData.vY = this.minSpeed;
+    }
+  }
+
+  isStopped() {
+    return this.playerData.vX === this.minSpeed && this.playerData.vY === this.minSpeed;
   }
 
   // dt for now equal 1 to simplify math. Change it if needed.
   updateData() {
     // Recalculate V, x
-    this.playerData.vX += this.playerData.aX;
-    this.playerData.vY += this.playerData.aY;
-
     this.playerData.x += this.playerData.vX;
     this.playerData.y += this.playerData.vY;
 
