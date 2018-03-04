@@ -5,5 +5,6 @@ export default class {
     this.r = r;
     this.vX = 0;
     this.vY = 0;
+    this.orbitRadius = 0;
   }
 }

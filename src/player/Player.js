@@ -20,27 +20,35 @@ export default class {
   }
 
   changeVelocity({ dVx, dVy }) {
+    const considerStoppedWhen = Math.min(config.releaseDv, config.keyPressDv) / 2;
     const newVx = this.playerData.vX + dVx;
     const newVy = this.playerData.vY + dVy;
     this.playerData.vX = getValueNotViolatingBounds(newVx, -this.maxSpeed, this.maxSpeed);
     this.playerData.vY = getValueNotViolatingBounds(newVy, -this.maxSpeed, this.maxSpeed);
 
-    if (Math.abs(this.playerData.vX) < config.releaseDv / 2) {
+    if (Math.abs(this.playerData.vX) < considerStoppedWhen) {
       this.playerData.vX = this.minSpeed;
     }
 
-    if (Math.abs(this.playerData.vY) < config.releaseDv / 2) {
+    if (Math.abs(this.playerData.vY) < considerStoppedWhen) {
       this.playerData.vY = this.minSpeed;
     }
   }
 
-  isStopped() {
-    return this.playerData.vX === this.minSpeed && this.playerData.vY === this.minSpeed;
+  startRotating(orbitRadius) {
+    this.playerData.orbitRadius = 200;
+  }
+
+  isStoppedX() {
+    return this.playerData.vX === this.minSpeed;
+  }
+
+  isStoppedY() {
+    return this.playerData.vY === this.minSpeed;
   }
 
   // dt for now equal 1 to simplify math. Change it if needed.
   updateData() {
-    // Recalculate V, x
     this.playerData.x += this.playerData.vX;
     this.playerData.y += this.playerData.vY;
 

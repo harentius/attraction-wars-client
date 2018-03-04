@@ -3,7 +3,7 @@ import config from '../config';
 import Player from '../player/Player';
 import getPlayerData from '../player/data-provider/getPlayerData';
 import getOtherPlayersData from '../player/data-provider/getOtherPlayersData';
-import { getDa } from '../player/Physics';
+import { startRotatingIfNeed } from '../player/Physics';
 
 let player;
 const otherPlayers = [];
@@ -40,7 +40,7 @@ export default class extends Phaser.Scene {
 
   update() {
     player.updateData();
-    // player.accelerate(getDa(player, otherPlayers));
+    startRotatingIfNeed(player, otherPlayers);
     this._moveIfInput();
   }
 
@@ -63,10 +63,10 @@ export default class extends Phaser.Scene {
 
     if (isAcceleratingKeyPress) {
       player.changeVelocity(dv);
-    } else if (!player.isStopped()) {
+    } else if (!player.isStoppedX() || !player.isStoppedY()) {
       dv = {
-        dVx: config.releaseDv * (player.playerData.vX > 0 ? -1 : 1),
-        dVy: config.releaseDv * (player.playerData.vY > 0 ? -1 : 1),
+        dVx: player.isStoppedX() ? 0 : config.releaseDv * (player.playerData.vX > 0 ? -1 : 1),
+        dVy: player.isStoppedY() ? 0 : config.releaseDv * (player.playerData.vY > 0 ? -1 : 1),
       };
       player.changeVelocity(dv);
     }

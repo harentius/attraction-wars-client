@@ -7,5 +7,5 @@ export default {
   localStorageName: 'attraction-wars',
   worldBounds: [0, 0, 20000, 20000],
   keyPressDv: 0.05,
-  releaseDv: 0.025,
+  releaseDv: 0.075,
 };

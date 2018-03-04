@@ -26,5 +26,6 @@ module.exports = {
     "no-bitwise": ["error", { "allow": ["~"] }],
     'no-throw-literal': 0,
     "semi-style": 0,
+    "function-paren-newline": 0,
   },
 };
