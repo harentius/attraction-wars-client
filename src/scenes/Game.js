@@ -3,7 +3,7 @@ import config from '../config';
 import Player from '../player/Player';
 import getPlayerData from '../player/data-provider/getPlayerData';
 import getOtherPlayersData from '../player/data-provider/getOtherPlayersData';
-import { startRotatingIfNeed } from '../player/Physics';
+import { startRotatingIfNeed } from '../player/physics/Physics';
 
 let player;
 const otherPlayers = [];
