@@ -35,8 +35,12 @@ export default class {
     }
   }
 
-  startRotating(orbitRadius) {
-    this.playerData.orbitRadius = 200;
+  setRotationData(rotationData) {
+    this.playerData.rotationData = rotationData;
+  }
+
+  cleanRotationData() {
+    this.playerData.rotationData = null;
   }
 
   isStoppedX() {
@@ -49,8 +53,20 @@ export default class {
 
   // dt for now equal 1 to simplify math. Change it if needed.
   updateData() {
+    if (this.playerData.rotationData !== null) {
+      Phaser.Math.RotateAroundDistance(
+        this.circle,
+        this.playerData.rotationData.x,
+        this.playerData.rotationData.y,
+        0.0075,
+        this.playerData.rotationData.R,
+      );
+    }
+    this.playerData.x = this.circle.x;
+    this.playerData.y = this.circle.y;
     this.playerData.x += this.playerData.vX;
     this.playerData.y += this.playerData.vY;
+
 
     this._checkBoundCollisions();
     this._redraw();

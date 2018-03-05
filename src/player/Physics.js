@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { RotationData } from './data/PlayerData';
 
 // First zone is closest to circle
 const getInteractionZone = (player, otherPlayer) => {
@@ -24,12 +25,18 @@ const startRotatingIfNeed = (player, otherPlayers) => {
     const interactionZone = getInteractionZone(player, otherPlayer);
 
     if (interactionZone === 3) {
-      const distance = Math.sqrt(
+      const R = Math.sqrt(
         (otherPlayer.playerData.x - player.playerData.x) ** 2
         + (otherPlayer.playerData.y - player.playerData.y) ** 2,
       );
 
-      player.startRotating(distance);
+      player.setRotationData(new RotationData(
+        otherPlayer.playerData.x,
+        otherPlayer.playerData.y,
+        R,
+      ));
+    } else if (interactionZone === null && player.playerData.rotationData !== null) {
+      player.cleanRotationData();
     }
   });
 };

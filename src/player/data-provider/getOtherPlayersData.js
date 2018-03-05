@@ -1,4 +1,4 @@
-import PlayerData from '../data/PlayerData';
+import { PlayerData } from '../data/PlayerData';
 
 export default () => [
   // new PlayerData(100, 100, 50),
