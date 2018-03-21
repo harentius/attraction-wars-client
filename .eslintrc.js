@@ -27,5 +27,11 @@ module.exports = {
     'no-throw-literal': 0,
     "semi-style": 0,
     "function-paren-newline": 0,
+    "no-new": 0,
+    "no-restricted-syntax": [
+      'error',
+      'LabeledStatement',
+      'WithStatement',
+    ],
   },
 };
