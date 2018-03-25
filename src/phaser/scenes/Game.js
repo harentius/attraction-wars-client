@@ -18,11 +18,11 @@ export default class extends Phaser.Scene {
 
   create() {
     const storage = this._getStorage();
-    const { playerData, worldBounds } = storage.worldData;
+    const { worldBounds } = storage.worldData;
 
     this.add.tileSprite(worldBounds[0], worldBounds[1], 2 * worldBounds[2], 2 * worldBounds[3], 'background');
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.player.spawn(playerData);
+    this.player.spawn(storage.playerData);
 
     this.cameras.main.setSize(config.width, config.height);
     this.cameras.main.setBounds(...worldBounds, true, true, true, true);
