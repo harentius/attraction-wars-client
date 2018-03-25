@@ -8,9 +8,10 @@ const gameConfig = Object.assign(config, {
 });
 
 class Game extends Phaser.Game {
-  constructor(storage) {
+  constructor(storage, client) {
     super(gameConfig);
     this.storage = storage;
+    this.client = client;
   }
 }
 

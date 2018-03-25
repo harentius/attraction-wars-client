@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import config from './config';
+import config from '../config';
 
 const socket = io.connect(config.serverUrl);
 
@@ -16,6 +16,10 @@ class Client {
     socket.on('player', (data) => {
       this.storage.updatePlayerData(data);
     });
+  }
+
+  sendKeysPressState(keysPressState) {
+    socket.emit('keysPressState', keysPressState);
   }
 }
 
