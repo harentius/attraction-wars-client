@@ -13,7 +13,7 @@ class Client {
       this.storage.updateWorldData(data);
     });
 
-    socket.on('player', (data) => {
+    socket.on('playerData', (data) => {
       this.storage.updatePlayerData(data);
     });
   }
