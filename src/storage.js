@@ -43,7 +43,7 @@ class Storage {
     }
 
     for (const callback of this._events[event]) {
-      callback.call(data);
+      callback.apply(this, data);
     }
   }
 }
