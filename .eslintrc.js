@@ -28,6 +28,7 @@ module.exports = {
     "semi-style": 0,
     "function-paren-newline": 0,
     "no-new": 0,
+    'object-curly-newline': 0,
     "no-restricted-syntax": [
       'error',
       'LabeledStatement',

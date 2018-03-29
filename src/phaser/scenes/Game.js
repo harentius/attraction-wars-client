@@ -3,7 +3,7 @@ import config from '../../config';
 import Player from '../player/Player';
 import KeysPressState from '../../client/KeysPressState';
 
-export default class extends Phaser.Scene {
+class Game extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' });
     this.player = new Player(this);
@@ -55,3 +55,5 @@ export default class extends Phaser.Scene {
     return this.sys.game.client;
   }
 }
+
+export default Game;

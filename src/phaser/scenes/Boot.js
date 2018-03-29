@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import config from '../../config';
 
-export default class extends Phaser.Scene {
+class Boot extends Phaser.Scene {
   constructor() {
     super({ key: 'BootScene' });
   }
@@ -13,3 +13,5 @@ export default class extends Phaser.Scene {
     this.scene.start('GameScene');
   }
 }
+
+export default Boot;
