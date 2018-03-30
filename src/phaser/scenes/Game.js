@@ -23,10 +23,9 @@ class Game extends Phaser.Scene {
 
     this.add.tileSprite(worldBounds[0], worldBounds[1], 2 * worldBounds[2], 2 * worldBounds[3], 'background');
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.player.spawn(storage.playerData);
 
     for (const playerData of Object.values(this._getStorage().worldData.playersData)) {
-      if (this.player.playerData.id === playerData.id) {
+      if (storage.playerData.id === playerData.id) {
         continue;
       }
 
@@ -34,6 +33,8 @@ class Game extends Phaser.Scene {
       this.otherPlayers.set(playerData.id, player);
       player.spawn(playerData);
     }
+
+    this.player.spawn(storage.playerData);
 
     this.cameras.main.setSize(config.width, config.height);
     this.cameras.main.setBounds(...worldBounds, true, true, true, true);
