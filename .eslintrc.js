@@ -34,5 +34,6 @@ module.exports = {
       'LabeledStatement',
       'WithStatement',
     ],
+    "no-continue": 0,
   },
 };

@@ -8,10 +8,10 @@ class Player {
     this.playerData = null;
   }
 
-  spawn(playerData, color = 0x303331) {
+  spawn(playerData) {
     this.playerData = playerData;
     this.circle = new Phaser.Geom.Circle(playerData.x, playerData.y, playerData.r);
-    this.graphics = this.scene.add.graphics({ fillStyle: { color } });
+    this.graphics = this.scene.add.graphics({ fillStyle: { color: playerData.color } });
     this.graphics.fillCircleShape(this.circle);
   }
 
