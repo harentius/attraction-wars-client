@@ -2,7 +2,7 @@ class Storage {
   static get PLAYER_DATA_CREATED() { return 'player_data_created'; }
   static get WORLD_DATA_CREATED() { return 'world_data_created'; }
 
-  constructor(worldData = {}, playerData = {}) {
+  constructor(worldData = { playersData: {}, worldBounds: [] }, playerData = {}) {
     this.worldData = worldData;
     this.playerData = playerData;
     this._playerId = null;
@@ -10,12 +10,30 @@ class Storage {
   }
 
   updateWorldData(worldData) {
-    if (Object.keys(this.worldData).length === 0 && Object.keys(worldData).length !== 0) {
-      this.trigger(Storage.WORLD_DATA_CREATED);
+    const isCreated = Object.keys(this.worldData.playersData).length === 0
+      && Object.keys(worldData).length !== 0
+    ;
+    this.worldData.worldBounds = worldData.worldBounds;
+
+    for (const key of Object.keys(worldData.playersData)) {
+      if (this.worldData.playersData[key]) {
+        Object.assign(this.worldData.playersData[key], worldData.playersData[key]);
+      } else {
+        this.worldData.playersData[key] = worldData.playersData[key];
+      }
     }
 
-    Object.assign(this.worldData, worldData);
+    for (const key of Object.keys(this.worldData.playersData)) {
+      if (!worldData.playersData[key]) {
+        delete this.worldData.playersData[key];
+      }
+    }
+
     Object.assign(this.playerData, worldData.playersData[this._playerId]);
+
+    if (isCreated) {
+      this.trigger(Storage.WORLD_DATA_CREATED);
+    }
   }
 
   updatePlayerData(playerData) {

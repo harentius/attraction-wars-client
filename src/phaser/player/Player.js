@@ -15,6 +15,10 @@ class Player {
     this.graphics.fillCircleShape(this.circle);
   }
 
+  destroy() {
+    this.graphics.clear();
+  }
+
   redraw() {
     this.circle.x = this.playerData.x;
     this.circle.y = this.playerData.y;

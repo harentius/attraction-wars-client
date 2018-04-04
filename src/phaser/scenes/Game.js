@@ -29,9 +29,7 @@ class Game extends Phaser.Scene {
         continue;
       }
 
-      const player = new Player(this);
-      this.otherPlayers.set(playerData.id, player);
-      player.spawn(playerData);
+      this._createAndSpawnPlayer(playerData);
     }
 
     this.player.spawn(storage.playerData);
@@ -42,6 +40,12 @@ class Game extends Phaser.Scene {
   }
 
   update() {
+    this._updatePlayers();
+
+    for (const otherPlayer of this.otherPlayers.values()) {
+      otherPlayer.redraw();
+    }
+
     this.player.redraw();
     this._handleInput();
   }
@@ -65,6 +69,35 @@ class Game extends Phaser.Scene {
 
   _getClient() {
     return this.sys.game.client;
+  }
+
+  _updatePlayers() {
+    for (const playerData of Object.values(this._getStorage().worldData.playersData)) {
+      if (this.player.playerData.id === playerData.id) {
+        continue;
+      }
+
+      if (!this.otherPlayers.has(playerData.id)) {
+        this._createAndSpawnPlayer(playerData);
+      }
+    }
+
+    for (const [key, otherPlayer] of this.otherPlayers.entries()) {
+      if (this._getStorage().worldData.playersData[key]) {
+        continue;
+      }
+
+      otherPlayer.destroy();
+      this.otherPlayers.delete(key);
+    }
+  }
+
+  _createAndSpawnPlayer(playerData) {
+    const player = new Player(this);
+    this.otherPlayers.set(playerData.id, player);
+    player.spawn(playerData);
+
+    return player;
   }
 }
 
