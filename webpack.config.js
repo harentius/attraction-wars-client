@@ -9,14 +9,15 @@ const definePlugin = new webpack.DefinePlugin({
 module.exports = {
   entry: {
     app: ['babel-polyfill', path.resolve(__dirname, 'src/app.js')],
+    'app-ui': ['babel-polyfill', path.resolve(__dirname, 'src/ui/index.jsx')],
     vendor: ['phaser'],
   },
   devtool: 'source-map',
   output: {
     pathinfo: true,
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: './dist/',
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public/dist'),
+    publicPath: './public/dist/',
+    filename: '[name].js',
   },
   watch: true,
   plugins: [
@@ -33,20 +34,26 @@ module.exports = {
       host: process.env.IP || 'localhost',
       port: process.env.PORT || 3000,
       server: {
-        baseDir: ['./', './build'],
+        baseDir: ['./public/', './public/build'],
       },
     }),
   ],
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         use: ['babel-loader'],
         include: path.join(__dirname, 'src'),
       },
       {
         test: [/\.vert$/, /\.frag$/],
         use: 'raw-loader',
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'sass-loader',
+        ],
       },
     ],
   },
