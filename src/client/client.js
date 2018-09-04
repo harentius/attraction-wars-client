@@ -1,25 +1,32 @@
 import io from 'socket.io-client';
 import config from '../config';
-
-const socket = io.connect(config.serverUrl);
+import Game from '../phaser/Game';
 
 class Client {
   constructor(storage) {
+    this.socket = null;
     this.storage = storage;
   }
 
   connect() {
-    socket.on('worldData', (data) => {
+    this.socket = io.connect(config.serverUrl);
+    this.socket.on('worldData', (data) => {
       this.storage.updateWorldData(data);
     });
 
-    socket.on('playerData', (data) => {
+    this.socket.on('playerData', (data) => {
+      console.log(`Logged as ${data.username}`);
       this.storage.updatePlayerData(data);
+      new Game(this.storage, this);
     });
   }
 
   sendKeysPressState(keysPressState) {
-    socket.emit('keysPressState', keysPressState);
+    this.socket.emit('keysPressState', keysPressState);
+  }
+
+  login(username) {
+    this.socket.emit('login', username);
   }
 }
 

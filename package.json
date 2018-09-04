@@ -33,6 +33,7 @@
     "expose-loader": "^0.7.3",
     "node-sass": "^4.9.2",
     "phaser": "^3.11.0",
+    "prop-types": "^15.6.2",
     "raw-loader": "^0.5.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

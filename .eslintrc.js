@@ -10,7 +10,10 @@ module.exports = {
     ASSET_VERSION: true,
     DEBUG: true,
   },
-  extends: 'airbnb-base',
+  extends: [
+      'airbnb-base',
+      'plugin:react/recommended',
+  ],
   rules: {
     'no-plusplus': 0,
     'import/prefer-default-export': 0,
@@ -35,5 +38,6 @@ module.exports = {
       'WithStatement',
     ],
     "no-continue": 0,
+    "no-console": 0,
   },
 };

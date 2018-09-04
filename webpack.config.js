@@ -9,7 +9,6 @@ const definePlugin = new webpack.DefinePlugin({
 module.exports = {
   entry: {
     app: ['babel-polyfill', path.resolve(__dirname, 'src/app.js')],
-    'app-ui': ['babel-polyfill', path.resolve(__dirname, 'src/ui/index.jsx')],
     vendor: ['phaser'],
   },
   devtool: 'source-map',
