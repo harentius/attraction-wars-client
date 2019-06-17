@@ -6,7 +6,7 @@ import KeysPressState from '../../client/KeysPressState';
 class Space extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' });
-    this.player = new Player(this);
+    this.player = null;
     this.otherPlayers = new Map();
     this.previousKeysPressState = new KeysPressState();
     this.keysPressState = new KeysPressState();
@@ -19,6 +19,8 @@ class Space extends Phaser.Scene {
 
   create() {
     const storage = this._getStorage();
+    this.player = new Player(this, storage.worldData.relativeZonesSizes);
+
     const { worldBounds } = storage.worldData;
 
     this.add.tileSprite(worldBounds[0], worldBounds[1], worldBounds[2], worldBounds[3], 'background');
@@ -93,7 +95,7 @@ class Space extends Phaser.Scene {
   }
 
   _createAndSpawnPlayer(playerData) {
-    const player = new Player(this);
+    const player = new Player(this, this._getStorage().worldData.relativeZonesSizes);
     this.otherPlayers.set(playerData.id, player);
     player.spawn(playerData);
 
