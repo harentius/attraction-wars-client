@@ -2,7 +2,10 @@ class Storage {
   static get PLAYER_DATA_CREATED() { return 'player_data_created'; }
   static get WORLD_DATA_CREATED() { return 'world_data_created'; }
 
-  constructor(worldData = { playersData: {}, worldBounds: [] }, playerData = {}) {
+  constructor(
+    worldData = { playersData: {}, worldBounds: [], relativeZonesSizes: [] },
+    playerData = {},
+  ) {
     this.worldData = worldData;
     this.playerData = playerData;
     this._playerId = null;
@@ -13,7 +16,9 @@ class Storage {
     const isCreated = Object.keys(this.worldData.playersData).length === 0
       && Object.keys(worldData).length !== 0
     ;
+    // Can be moved to some kind of init event and send only once
     this.worldData.worldBounds = worldData.worldBounds;
+    this.worldData.relativeZonesSizes = worldData.relativeZonesSizes;
 
     for (const key of Object.keys(worldData.playersData)) {
       if (this.worldData.playersData[key]) {

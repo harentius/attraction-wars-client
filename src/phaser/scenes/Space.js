@@ -3,7 +3,7 @@ import config from '../../config';
 import Player from '../player/Player';
 import KeysPressState from '../../client/KeysPressState';
 
-class Game extends Phaser.Scene {
+class Space extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' });
     this.player = new Player(this);
@@ -21,7 +21,7 @@ class Game extends Phaser.Scene {
     const storage = this._getStorage();
     const { worldBounds } = storage.worldData;
 
-    this.add.tileSprite(worldBounds[0], worldBounds[1], 2 * worldBounds[2], 2 * worldBounds[3], 'background');
+    this.add.tileSprite(worldBounds[0], worldBounds[1], worldBounds[2], worldBounds[3], 'background');
     this.cursors = this.input.keyboard.createCursorKeys();
 
     for (const playerData of Object.values(this._getStorage().worldData.playersData)) {
@@ -101,4 +101,4 @@ class Game extends Phaser.Scene {
   }
 }
 
-export default Game;
+export default Space;
