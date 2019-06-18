@@ -7,11 +7,11 @@ const definePlugin = new webpack.DefinePlugin({
 });
 
 module.exports = {
+  devtool: 'source-map',
   entry: {
     app: ['babel-polyfill', path.resolve(__dirname, 'src/app.js')],
     vendor: ['phaser'],
   },
-  devtool: 'source-map',
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'public/dist'),

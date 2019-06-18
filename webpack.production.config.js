@@ -1,64 +1,49 @@
 const path = require('path');
 const webpack = require('webpack');
 
-// Phaser webpack config
-const phaserModule = path.join(__dirname, '/node_modules/phaser-ce/');
-const phaser = path.join(phaserModule, 'build/custom/phaser-split.js');
-const pixi = path.join(phaserModule, 'build/custom/pixi.js');
-const p2 = path.join(phaserModule, 'build/custom/p2.js');
-
 const definePlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'false')),
+  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
 });
 
 module.exports = {
   entry: {
-    app: [
-      'babel-polyfill',
-      path.resolve(__dirname, 'src/main.js'),
-    ],
-    vendor: ['pixi', 'p2', 'phaser', 'webfontloader'],
-
+    app: ['babel-polyfill', path.resolve(__dirname, 'src/app.js')],
+    vendor: ['phaser'],
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: './dist/',
-    filename: 'bundle.js',
+    pathinfo: true,
+    path: path.resolve(__dirname, 'public/dist'),
+    publicPath: './public/dist/',
+    filename: '[name].js',
   },
   plugins: [
     definePlugin,
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.optimize.UglifyJsPlugin({
-      drop_console: true,
-      minimize: true,
-      output: {
-        comments: false,
-      },
+    new webpack.DefinePlugin({
+      CANVAS_RENDERER: JSON.stringify(true),
+      WEBGL_RENDERER: JSON.stringify(true),
     }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */ }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.bundle.js',
+    }),
   ],
   module: {
     rules: [
-      { test: /\.js$/, use: ['babel-loader'], include: path.join(__dirname, 'src') },
-      { test: /pixi\.js/, use: ['expose-loader?PIXI'] },
-      { test: /phaser-split\.js$/, use: ['expose-loader?Phaser'] },
-      { test: /p2\.js/, use: ['expose-loader?p2'] },
+      {
+        test: /\.(js|jsx)$/,
+        use: ['babel-loader'],
+        include: path.join(__dirname, 'src'),
+      },
       {
         test: [/\.vert$/, /\.frag$/],
         use: 'raw-loader',
       },
+      {
+        test: /\.scss$/,
+        use: [
+          'sass-loader',
+        ],
+      },
     ],
-  },
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-  },
-  resolve: {
-    alias: {
-      phaser,
-      pixi,
-      p2,
-    },
   },
 };
