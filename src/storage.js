@@ -3,7 +3,7 @@ class Storage {
   static get WORLD_DATA_CREATED() { return 'world_data_created'; }
 
   constructor(
-    worldData = { playersData: {}, worldBounds: [], relativeZonesSizes: [] },
+    worldData = { playersData: {}, asteroidsData: {}, worldBounds: [], relativeZonesSizes: [] },
     playerData = {},
   ) {
     this.worldData = worldData;
@@ -20,6 +20,7 @@ class Storage {
     this.worldData.worldBounds = worldData.worldBounds;
     this.worldData.relativeZonesSizes = worldData.relativeZonesSizes;
 
+    // Players Data sync
     for (const key of Object.keys(worldData.playersData)) {
       if (this.worldData.playersData[key]) {
         Object.assign(this.worldData.playersData[key], worldData.playersData[key]);
@@ -34,7 +35,21 @@ class Storage {
       }
     }
 
+    // Current player data sync
     Object.assign(this.playerData, worldData.playersData[this._playerId]);
+
+    // Asteroids Data sync
+    for (const key of Object.keys(worldData.asteroidsData)) {
+      if (!this.worldData.asteroidsData[key]) {
+        this.worldData.asteroidsData[key] = worldData.asteroidsData[key];
+      }
+    }
+
+    for (const key of Object.keys(this.worldData.asteroidsData)) {
+      if (!worldData.asteroidsData[key]) {
+        delete this.worldData.asteroidsData[key];
+      }
+    }
 
     if (isCreated) {
       this.trigger(Storage.WORLD_DATA_CREATED);

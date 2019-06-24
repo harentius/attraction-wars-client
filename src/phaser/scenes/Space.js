@@ -2,12 +2,14 @@ import Phaser from 'phaser';
 import config from '../../config';
 import Player from '../player/Player';
 import KeysPressState from '../../client/KeysPressState';
+import Asteroid from '../asteroid/Asteroid';
 
 class Space extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' });
     this.player = null;
     this.otherPlayers = new Map();
+    this.asteroids = new Map();
     this.previousKeysPressState = new KeysPressState();
     this.keysPressState = new KeysPressState();
     this.cursors = null;
@@ -26,12 +28,16 @@ class Space extends Phaser.Scene {
     this.add.tileSprite(worldBounds[0], worldBounds[1], worldBounds[2], worldBounds[3], 'background');
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    for (const playerData of Object.values(this._getStorage().worldData.playersData)) {
+    for (const playerData of Object.values(storage.worldData.playersData)) {
       if (storage.playerData.id === playerData.id) {
         continue;
       }
 
       this._createAndSpawnPlayer(playerData);
+    }
+
+    for (const asteroidData of Object.values(storage.worldData.asteroidsData)) {
+      this._createAndSpawnAsteroid(asteroidData);
     }
 
     this.player.spawn(storage.playerData);
@@ -43,6 +49,7 @@ class Space extends Phaser.Scene {
 
   update() {
     this._updatePlayers();
+    this._updateAsteroids();
 
     for (const otherPlayer of this.otherPlayers.values()) {
       otherPlayer.redraw();
@@ -74,7 +81,9 @@ class Space extends Phaser.Scene {
   }
 
   _updatePlayers() {
-    for (const playerData of Object.values(this._getStorage().worldData.playersData)) {
+    const storage = this._getStorage();
+
+    for (const playerData of Object.values(storage.worldData.playersData)) {
       if (this.player.playerData.id === playerData.id) {
         continue;
       }
@@ -85,12 +94,31 @@ class Space extends Phaser.Scene {
     }
 
     for (const [key, otherPlayer] of this.otherPlayers.entries()) {
-      if (this._getStorage().worldData.playersData[key]) {
+      if (storage.worldData.playersData[key]) {
         continue;
       }
 
       otherPlayer.destroy();
       this.otherPlayers.delete(key);
+    }
+  }
+
+  _updateAsteroids() {
+    const storage = this._getStorage();
+
+    for (const asteroidsData of Object.values(storage.worldData.asteroidsData)) {
+      if (!this.asteroids.has(asteroidsData.id)) {
+        this._createAndSpawnPlayer(asteroidsData);
+      }
+    }
+
+    for (const [key, asteroid] of this.asteroids.entries()) {
+      if (storage.worldData.asteroidsData[key]) {
+        continue;
+      }
+
+      asteroid.destroy();
+      this.asteroids.delete(key);
     }
   }
 
@@ -100,6 +128,14 @@ class Space extends Phaser.Scene {
     player.spawn(playerData);
 
     return player;
+  }
+
+  _createAndSpawnAsteroid(asteroidData) {
+    const asteroid = new Asteroid(this);
+    this.asteroids.set(asteroidData.id, asteroid);
+    asteroid.spawn(asteroidData);
+
+    return asteroid;
   }
 }
 
