@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-const ASTEROID_COLOR = 0xffffff;
+const ASTEROID_COLOR = 0xa1a7af;
 
 class Asteroid {
   constructor(scene) {
