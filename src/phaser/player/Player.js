@@ -30,16 +30,19 @@ class Player {
 
   destroy() {
     this.graphics.clear();
+
+    for (const [, graphics] of Object.entries(this.zonesGraphics)) {
+      graphics.clear();
+    }
   }
 
   redraw() {
     this.circle.x = this.playerData.x;
     this.circle.y = this.playerData.y;
-    this.graphics.clear();
+    this.destroy();
     this.graphics.fillCircle(this.playerData.x, this.playerData.y, this.playerData.r);
 
     for (const [i, graphics] of Object.entries(this.zonesGraphics)) {
-      graphics.clear();
       const r = this.playerData.r * this.relativeZonesSizes[i];
       graphics.fillCircle(this.playerData.x, this.playerData.y, r);
       graphics.strokeCircle(this.playerData.x, this.playerData.y, r);

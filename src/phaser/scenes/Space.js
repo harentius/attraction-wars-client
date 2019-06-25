@@ -55,6 +55,10 @@ class Space extends Phaser.Scene {
       otherPlayer.redraw();
     }
 
+    for (const asteroid of this.asteroids.values()) {
+      asteroid.redraw();
+    }
+
     this.player.redraw();
     this._handleInput();
   }
@@ -131,7 +135,10 @@ class Space extends Phaser.Scene {
   }
 
   _createAndSpawnAsteroid(asteroidData) {
-    const asteroid = new Asteroid(this);
+    const asteroid = new Asteroid(
+      this,
+      this._getStorage().worldData.asteroidAttractionRadiusMultiplier,
+    );
     this.asteroids.set(asteroidData.id, asteroid);
     asteroid.spawn(asteroidData);
 

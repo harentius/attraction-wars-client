@@ -3,7 +3,13 @@ class Storage {
   static get WORLD_DATA_CREATED() { return 'world_data_created'; }
 
   constructor(
-    worldData = { playersData: {}, asteroidsData: {}, worldBounds: [], relativeZonesSizes: [] },
+    worldData = {
+      playersData: {},
+      asteroidsData: {},
+      worldBounds: [],
+      relativeZonesSizes: [],
+      asteroidAttractionRadiusMultiplier: 1.0,
+    },
     playerData = {},
   ) {
     this.worldData = worldData;
@@ -19,6 +25,9 @@ class Storage {
     // Can be moved to some kind of init event and send only once
     this.worldData.worldBounds = worldData.worldBounds;
     this.worldData.relativeZonesSizes = worldData.relativeZonesSizes;
+    this.worldData.asteroidAttractionRadiusMultiplier
+      = worldData.asteroidAttractionRadiusMultiplier
+    ;
 
     // Players Data sync
     for (const key of Object.keys(worldData.playersData)) {
@@ -40,7 +49,9 @@ class Storage {
 
     // Asteroids Data sync
     for (const key of Object.keys(worldData.asteroidsData)) {
-      if (!this.worldData.asteroidsData[key]) {
+      if (this.worldData.asteroidsData[key]) {
+        Object.assign(this.worldData.asteroidsData[key], worldData.asteroidsData[key]);
+      } else {
         this.worldData.asteroidsData[key] = worldData.asteroidsData[key];
       }
     }
