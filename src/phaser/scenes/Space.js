@@ -70,6 +70,7 @@ class Space extends Phaser.Scene {
     this.keysPressState.down = this.cursors.down.isDown;
     this.keysPressState.left = this.cursors.left.isDown;
     this.keysPressState.right = this.cursors.right.isDown;
+    this.keysPressState.space = this.cursors.space.isDown;
 
     if (!this.keysPressState.isEqual(this.previousKeysPressState)) {
       this._getClient().sendKeysPressState(this.keysPressState);
