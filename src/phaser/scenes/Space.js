@@ -24,8 +24,8 @@ class Space extends Phaser.Scene {
     this.player = new Player(this, storage.worldData.relativeZonesSizes);
 
     const { worldBounds } = storage.worldData;
-
-    this.add.tileSprite(worldBounds[0], worldBounds[1], worldBounds[2], worldBounds[3], 'background');
+    // TODO: optimize tile so it don't consume memory
+    this.add.tileSprite(worldBounds[2] / 2, worldBounds[3] / 2, worldBounds[2], worldBounds[3], 'background');
     this.cursors = this.input.keyboard.createCursorKeys();
 
     for (const playerData of Object.values(storage.worldData.playersData)) {

@@ -9,6 +9,7 @@ class Storage {
       worldBounds: [],
       relativeZonesSizes: [],
       asteroidAttractionRadiusMultiplier: 1.0,
+      serverStatistics: {},
     },
     playerData = {},
   ) {
@@ -61,6 +62,9 @@ class Storage {
         delete this.worldData.asteroidsData[key];
       }
     }
+
+    // Server Statistics sync
+    this.worldData.serverStatistics = worldData.serverStatistics;
 
     if (isCreated) {
       this.trigger(Storage.WORLD_DATA_CREATED);
