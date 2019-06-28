@@ -21,7 +21,7 @@ class Client {
       this.game = new Game(this.storage, this);
     });
 
-    this.socket.on('disconnect', (data) => {
+    this.socket.on('disconnect', () => {
       this.disconnect();
     });
   }
