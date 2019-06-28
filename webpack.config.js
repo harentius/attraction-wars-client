@@ -49,9 +49,23 @@ module.exports = {
         use: 'raw-loader',
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss)$/,
         use: [
-          'sass-loader',
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [require('autoprefixer')],
+            },
+          },
+          {
+            loader: 'sass-loader',
+          },
         ],
       },
     ],

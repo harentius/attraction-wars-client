@@ -24,7 +24,7 @@ class LoginForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit} className="login-form">
         <label>
-          Name:
+          Nickname:
           <input type="text" value={this.state.name} onChange={this.onChange}/>
         </label>
         <input type="submit" value="Submit"/>
