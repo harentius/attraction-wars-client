@@ -8,7 +8,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  client: PropTypes.instanceOf(Client)
+  client: PropTypes.instanceOf(Client),
 };
 
 export default App;

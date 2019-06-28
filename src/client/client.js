@@ -6,6 +6,7 @@ class Client {
   constructor(storage) {
     this.socket = null;
     this.storage = storage;
+    this.game = null;
   }
 
   connect() {
@@ -17,8 +18,16 @@ class Client {
     this.socket.on('playerData', (data) => {
       console.log(`Logged as ${data.username}`);
       this.storage.updatePlayerData(data);
-      new Game(this.storage, this);
+      this.game = new Game(this.storage, this);
     });
+
+    this.socket.on('disconnect', (data) => {
+      this.disconnect();
+    });
+  }
+
+  disconnect() {
+    this.game.destroy(true);
   }
 
   sendKeysPressState(keysPressState) {
@@ -26,6 +35,7 @@ class Client {
   }
 
   login(username) {
+    this.connect();
     this.socket.emit('login', username);
   }
 }
