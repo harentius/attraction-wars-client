@@ -1,0 +1,16 @@
+.in-game {
+  display: inline-flex;
+  flex-direction: column;
+
+  .in-game-widget {
+    margin: 0 0 10px 10px;
+
+    &.score-widget {
+      width: 140px;
+    }
+
+    &.server-statistics-widget {
+      width: 285px;
+    }
+  }
+}

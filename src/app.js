@@ -1,5 +1,6 @@
-import Storage from './storage';
-import Client from './client/client';
+import './style.scss';
+import Storage from './Storage';
+import Client from './client/Client';
 import startUi from './ui/startUi.jsx';
 
 const storage = new Storage();

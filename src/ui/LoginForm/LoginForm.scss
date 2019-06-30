@@ -1,6 +1,13 @@
 @import "~bootstrap/scss/bootstrap";
 
 .form-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
   border: 1px solid #000;
-  padding: 20px 50px 100px 50px
+  padding: 20px 50px 100px 50px;
 }

@@ -3,6 +3,8 @@ class Storage {
   static get WORLD_DATA_CREATED() { return 'world_data_created'; }
   static get CONNECT() { return 'connect'; }
   static get DISCONNECT() { return 'disconnect'; }
+  static get UPDATE_SCORE() { return 'update_score'; }
+  static get UPDATE_SERVER_STATISTICS() { return 'update_server_statistics'; }
 
   constructor() {
     this.refresh();
@@ -56,6 +58,14 @@ class Storage {
     }
 
     // Current player data sync
+    if (worldData.playersData[this._playerId]) {
+      const newScore = Math.ceil(worldData.playersData[this._playerId].score);
+
+      if (this.playerData.score !== newScore) {
+        this.trigger(Storage.UPDATE_SCORE, [newScore]);
+      }
+    }
+
     Object.assign(this.playerData, worldData.playersData[this._playerId]);
 
     // Asteroids Data sync
@@ -74,7 +84,12 @@ class Storage {
     }
 
     // Server Statistics sync
-    this.worldData.serverStatistics = worldData.serverStatistics;
+    if (JSON.stringify(this.worldData.serverStatistics)
+      !== JSON.stringify(worldData.serverStatistics)
+    ) {
+      this.trigger(Storage.UPDATE_SERVER_STATISTICS, [worldData.serverStatistics]);
+      this.worldData.serverStatistics = worldData.serverStatistics;
+    }
 
     if (isCreated) {
       this.trigger(Storage.WORLD_DATA_CREATED);
@@ -100,6 +115,14 @@ class Storage {
     this._events[event].push(callback);
 
     return this;
+  }
+
+  off(event) {
+    if (typeof this._events[event] === 'undefined') {
+      return;
+    }
+
+    this._events[event] = [];
   }
 
   trigger(event, data) {

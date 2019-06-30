@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './LoginForm.scss';
-import Client from '../../client/client';
+import Client from '../../client/Client';
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: '' };
+    this.state = { name: window.localStorage.getItem('nickname') || '' };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    window.localStorage.setItem('nickname', this.state.name);
     this.props.client.login(this.state.name);
   }
 

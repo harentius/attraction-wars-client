@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LoginForm from '../LoginForm/LoginForm.jsx';
 import './UI.scss';
-import Client from '../../client/client';
-import Storage from '../../storage';
+import Client from '../../client/Client';
+import InGame from '../InGame/InGame/InGame.jsx';
+import Storage from '../../Storage';
 
 class UI extends React.Component {
   constructor(props) {
@@ -28,7 +29,10 @@ class UI extends React.Component {
   render() {
     return (
       <div className="page-container">
-        {!this.state.isLogged && <LoginForm client={this.props.client}/> }
+        { this.state.isLogged
+          ? <InGame storage={this.props.storage}/>
+          : <LoginForm client={this.props.client}/>
+        }
       </div>
     );
   }
