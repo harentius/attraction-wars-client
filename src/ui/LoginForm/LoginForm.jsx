@@ -12,8 +12,8 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit(event) {
-    this.props.client.login(this.state.name);
     event.preventDefault();
+    this.props.client.login(this.state.name);
   }
 
   onChange(event) {
@@ -22,13 +22,15 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className="login-form">
-        <label>
-          Nickname:
-          <input type="text" value={this.state.name} onChange={this.onChange}/>
-        </label>
-        <input type="submit" value="Submit"/>
-      </form>
+      <div className="form-wrapper">
+        <form onSubmit={this.handleSubmit} className="login-form">
+          <label>
+            Nickname:
+            <input type="text" value={this.state.name} onChange={this.onChange}/>
+          </label>
+          <input className="btn btn-success" type="submit" value="Submit"/>
+        </form>
+      </div>
     );
   }
 }

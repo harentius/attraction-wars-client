@@ -1,8 +1,14 @@
 class Storage {
   static get PLAYER_DATA_CREATED() { return 'player_data_created'; }
   static get WORLD_DATA_CREATED() { return 'world_data_created'; }
+  static get CONNECT() { return 'connect'; }
+  static get DISCONNECT() { return 'disconnect'; }
 
-  constructor(
+  constructor() {
+    this.refresh();
+  }
+
+  refresh(
     worldData = {
       playersData: {},
       asteroidsData: {},
@@ -13,6 +19,10 @@ class Storage {
     },
     playerData = {},
   ) {
+    if (this._playerId) {
+      this.trigger(Storage.DISCONNECT);
+    }
+
     this.worldData = worldData;
     this.playerData = playerData;
     this._playerId = null;
@@ -77,6 +87,11 @@ class Storage {
     }
 
     Object.assign(this.playerData, playerData);
+
+    if (!this._playerId && playerData.id) {
+      this.trigger(Storage.CONNECT);
+    }
+
     this._playerId = playerData.id;
   }
 

@@ -28,6 +28,8 @@ class Client {
 
   disconnect() {
     this.game.destroy(true);
+    console.log('Log out');
+    this.storage.refresh();
   }
 
   sendKeysPressState(keysPressState) {
