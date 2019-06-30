@@ -6,6 +6,7 @@ class Storage {
 
   constructor() {
     this.refresh();
+    this._events = {};
   }
 
   refresh(
@@ -26,7 +27,6 @@ class Storage {
     this.worldData = worldData;
     this.playerData = playerData;
     this._playerId = null;
-    this._events = {};
   }
 
   updateWorldData(worldData) {
@@ -83,14 +83,11 @@ class Storage {
 
   updatePlayerData(playerData) {
     if (Object.keys(this.playerData).length === 0 && Object.keys(playerData).length !== 0) {
+      this.trigger(Storage.CONNECT);
       this.trigger(Storage.PLAYER_DATA_CREATED);
     }
 
     Object.assign(this.playerData, playerData);
-
-    if (!this._playerId && playerData.id) {
-      this.trigger(Storage.CONNECT);
-    }
 
     this._playerId = playerData.id;
   }
