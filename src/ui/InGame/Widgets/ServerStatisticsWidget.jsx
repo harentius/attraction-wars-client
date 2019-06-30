@@ -25,9 +25,9 @@ class ServerStatisticsWidget extends React.Component {
 
   render() {
     return <div className="in-game-widget server-statistics-widget">
-      <p>Server Load Percent: { this.state.serverStatistics.loadPercent }</p>
-      <p>Server Average Load Percent: { this.state.serverStatistics.averageLoadPercent }</p>
-      <p>Server Max Load Percent: { this.state.serverStatistics.maxLoadPercent }</p>
+      <p>Server Load: { this.state.serverStatistics.loadPercent }%</p>
+      <p>Server Average Load: { this.state.serverStatistics.averageLoadPercent }%</p>
+      <p>Server Max Load: { this.state.serverStatistics.maxLoadPercent }%</p>
     </div>;
   }
 }
