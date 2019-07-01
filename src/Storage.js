@@ -29,6 +29,7 @@ class Storage {
     this.worldData = worldData;
     this.playerData = playerData;
     this._playerId = null;
+    this.isConnected = false;
   }
 
   updateWorldData(worldData) {
@@ -94,17 +95,23 @@ class Storage {
     if (isCreated) {
       this.trigger(Storage.WORLD_DATA_CREATED);
     }
+
+    this._checkConnected();
   }
 
   updatePlayerData(playerData) {
-    if (Object.keys(this.playerData).length === 0 && Object.keys(playerData).length !== 0) {
-      this.trigger(Storage.CONNECT);
+    const isConnected = Object.keys(this.playerData).length === 0
+      && Object.keys(playerData).length !== 0
+    ;
+
+    Object.assign(this.playerData, playerData);
+    this._playerId = playerData.id;
+
+    if (isConnected) {
       this.trigger(Storage.PLAYER_DATA_CREATED);
     }
 
-    Object.assign(this.playerData, playerData);
-
-    this._playerId = playerData.id;
+    this._checkConnected();
   }
 
   on(event, callback) {
@@ -132,6 +139,17 @@ class Storage {
 
     for (const callback of this._events[event]) {
       callback.apply(this, data);
+    }
+  }
+
+  _checkConnected() {
+    if (!this.isConnected
+      && Object.keys(this.worldData.playersData).length > 0
+      && this._playerId
+      && this.worldData.playersData[this._playerId]
+    ) {
+      this.isConnected = true;
+      this.trigger(Storage.CONNECT);
     }
   }
 }

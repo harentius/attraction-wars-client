@@ -1,6 +1,11 @@
 .in-game {
-  display: inline-flex;
-  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+
+  .left-widgets-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+  }
 
   .in-game-widget {
     margin: 0 0 10px 10px;
@@ -11,6 +16,10 @@
 
     &.server-statistics-widget {
       width: 245px;
+    }
+
+    &.leaderboard-widget {
+
     }
   }
 }
