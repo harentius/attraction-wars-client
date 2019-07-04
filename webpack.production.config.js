@@ -7,7 +7,7 @@ const definePlugin = new webpack.DefinePlugin({
 
 module.exports = {
   entry: {
-    app: ['babel-polyfill', path.resolve(__dirname, 'src/app.js')],
+    app: [path.resolve(__dirname, 'src/app.js')],
     vendor: ['phaser'],
   },
   output: {
@@ -16,15 +16,17 @@ module.exports = {
     publicPath: './public/dist/',
     filename: '[name].js',
   },
+  optimization: {
+    splitChunks: {
+      name: 'vendor',
+      filename: 'vendor.bundle.js',
+    },
+  },
   plugins: [
     definePlugin,
     new webpack.DefinePlugin({
       CANVAS_RENDERER: JSON.stringify(true),
       WEBGL_RENDERER: JSON.stringify(true),
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      filename: 'vendor.bundle.js',
     }),
   ],
   module: {
