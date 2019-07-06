@@ -9,6 +9,7 @@ class Player {
     this.graphics = null;
     this.zonesGraphics = [];
     this.playerData = null;
+    this.playerNameText = null;
   }
 
   spawn(playerData) {
@@ -25,10 +26,17 @@ class Player {
       this.zonesGraphics.push(graphics);
     }
 
+    this.playerNameText = this.scene.add.text(
+      16,
+      16,
+      playerData.username,
+      { fontSize: '32px', fill: '#000', fontFamily: 'Verdana' },
+    );
+    this.playerNameText.setDepth(1000);
     this.redraw();
   }
 
-  destroy() {
+  clear() {
     this.graphics.clear();
 
     for (const [, graphics] of Object.entries(this.zonesGraphics)) {
@@ -36,11 +44,23 @@ class Player {
     }
   }
 
+  destroy() {
+    this.graphics.destroy();
+
+    for (const [, graphics] of Object.entries(this.zonesGraphics)) {
+      graphics.destroy();
+    }
+
+    this.playerNameText.destroy();
+  }
+
   redraw() {
     this.circle.x = this.playerData.x;
     this.circle.y = this.playerData.y;
-    this.destroy();
+    this.clear();
     this.graphics.fillCircle(this.playerData.x, this.playerData.y, this.playerData.r);
+    this.playerNameText.x = this.playerData.x - this.playerNameText.displayWidth / 2;
+    this.playerNameText.y = this.playerData.y - 16;
 
     for (const [i, graphics] of Object.entries(this.zonesGraphics)) {
       const r = this.playerData.r * this.relativeZonesSizes[i];
