@@ -63,7 +63,7 @@ class Storage {
       const newScore = Math.ceil(worldData.playersData[this._playerId].score);
 
       if (this.playerData.score !== newScore) {
-        this.trigger(Storage.UPDATE_SCORE, [newScore]);
+        this.trigger(Storage.UPDATE_SCORE, [newScore, worldData.playersData[this._playerId].r]);
       }
     }
 

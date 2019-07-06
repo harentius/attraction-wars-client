@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../Widget.scss';
-import Storage from '../../../Storage';
+import Storage from '../../../../Storage';
+import '../../Widget.scss';
+import './ScoreWidget.scss';
 
 class ScoreWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       score: 0,
+      size: 0,
     };
 
-    props.storage.on(Storage.UPDATE_SCORE, (score) => {
-      this.setState({ score });
+    props.storage.on(Storage.UPDATE_SCORE, (score, size) => {
+      this.setState({ score, size });
     });
   }
 
@@ -21,7 +23,8 @@ class ScoreWidget extends React.Component {
 
   render() {
     return <div className="in-game-widget score-widget">
-      Score: { this.state.score }
+      <p className="score">Score: { this.state.score }</p>
+      <p>Size: { this.state.size }</p>
     </div>;
   }
 }
