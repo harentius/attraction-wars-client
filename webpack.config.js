@@ -7,6 +7,7 @@ const definePlugin = new webpack.DefinePlugin({
 });
 
 module.exports = {
+  mode: 'development',
   devtool: 'source-map',
   entry: {
     app: [path.resolve(__dirname, 'src/app.js')],

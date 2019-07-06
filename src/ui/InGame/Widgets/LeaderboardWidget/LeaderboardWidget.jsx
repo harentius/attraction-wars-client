@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Storage from '../../../../Storage';
 import getLeaderboard from './services/getLeaderboard';
+import './LeaderboardWidget.scss';
 
 class LeaderboardWidget extends React.Component {
   constructor(props) {
@@ -26,8 +27,8 @@ class LeaderboardWidget extends React.Component {
   render() {
     return <div className="in-game-widget leaderboard-widget">
       <h4>Leaderboard</h4>
-      {this.state.leaderboard.map((i) =>
-        <p key={i.position}>{i.position}. {i.username}</p>,
+      {this.state.leaderboard.map((p) =>
+        <p className={p.isCurrentPlayer ? 'current-player' : 'other-player'} key={p.position}>{p.position}. {p.username}</p>,
       )}
     </div>;
   }
