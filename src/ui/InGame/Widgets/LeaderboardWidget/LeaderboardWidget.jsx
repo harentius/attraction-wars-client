@@ -27,7 +27,7 @@ class LeaderboardWidget extends React.Component {
     return <div className="in-game-widget leaderboard-widget">
       <h4>Leaderboard</h4>
       {this.state.leaderboard.map((i) =>
-        <p key={i.name}>{i.position}. {i.name}</p>,
+        <p key={i.position}>{i.position}. {i.username}</p>,
       )}
     </div>;
   }

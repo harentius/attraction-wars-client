@@ -11,6 +11,7 @@ class ServerStatisticsWidget extends React.Component {
         loadPercent: 0,
         maxLoadPercent: 0,
         averageLoadPercent: 0,
+        onlineCount: 0,
       },
     };
 
@@ -28,6 +29,7 @@ class ServerStatisticsWidget extends React.Component {
       <p>Server Load: { this.state.serverStatistics.loadPercent }%</p>
       <p>Server Average Load: { this.state.serverStatistics.averageLoadPercent }%</p>
       <p>Server Max Load: { this.state.serverStatistics.maxLoadPercent }%</p>
+      <p>Online Players: { this.state.serverStatistics.onlineCount }</p>
     </div>;
   }
 }
