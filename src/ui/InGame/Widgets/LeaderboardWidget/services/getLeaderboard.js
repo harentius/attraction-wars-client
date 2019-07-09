@@ -2,6 +2,7 @@ const createLeaderData = (playerData, playerPosition, isCurrentPlayer = false) =
   position: playerPosition + 1,
   username: playerData.username,
   isCurrentPlayer,
+  score: Math.round(playerData.score),
 });
 
 const getLeaderboard = (playerData, playersData) => {

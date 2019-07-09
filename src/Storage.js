@@ -60,7 +60,7 @@ class Storage {
 
     // Current player data sync
     if (worldData.playersData[this._playerId]) {
-      const newScore = Math.ceil(worldData.playersData[this._playerId].score);
+      const newScore = Math.round(worldData.playersData[this._playerId].score);
 
       if (this.playerData.score !== newScore) {
         this.trigger(Storage.UPDATE_SCORE, [

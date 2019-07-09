@@ -17,7 +17,7 @@ class LeaderboardWidget extends React.Component {
       this.setState({
         leaderboard: getLeaderboard(storage.playerData, storage.worldData.playersData),
       });
-    }, 10000);
+    }, 2000);
   }
 
   componentWillUnmount() {
@@ -28,7 +28,7 @@ class LeaderboardWidget extends React.Component {
     return <div className="in-game-widget leaderboard-widget">
       <h4>Leaderboard</h4>
       {this.state.leaderboard.map((p) =>
-        <p className={p.isCurrentPlayer ? 'current-player' : 'other-player'} key={p.position}>{p.position}. {p.username}</p>,
+        <p className={p.isCurrentPlayer ? 'current-player' : 'other-player'} key={p.position}>{p.position}. {p.username} {p.score}</p>,
       )}
     </div>;
   }

@@ -28,18 +28,6 @@ class Space extends Phaser.Scene {
     this.add.tileSprite(worldBounds[2] / 2, worldBounds[3] / 2, worldBounds[2], worldBounds[3], 'background');
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    for (const playerData of Object.values(storage.worldData.playersData)) {
-      if (storage.playerData.id === playerData.id) {
-        continue;
-      }
-
-      this._createAndSpawnPlayer(playerData);
-    }
-
-    for (const asteroidData of Object.values(storage.worldData.asteroidsData)) {
-      this._createAndSpawnAsteroid(asteroidData);
-    }
-
     this.player.spawn(storage.playerData);
 
     this.cameras.main.setSize(config.width, config.height);
@@ -87,19 +75,26 @@ class Space extends Phaser.Scene {
 
   _updatePlayers() {
     const storage = this._getStorage();
+    const influenceMultiplier = storage.worldData.relativeZonesSizes[2];
 
     for (const playerData of Object.values(storage.worldData.playersData)) {
       if (this.player.playerData.id === playerData.id) {
         continue;
       }
 
-      if (!this.otherPlayers.has(playerData.id)) {
+      if (!this.otherPlayers.has(playerData.id)
+        && this._isCircleInViewPort(playerData.x, playerData.y, playerData.r * influenceMultiplier)
+      ) {
         this._createAndSpawnPlayer(playerData);
       }
     }
 
     for (const [key, otherPlayer] of this.otherPlayers.entries()) {
-      if (storage.worldData.playersData[key]) {
+      const playerData = storage.worldData.playersData[key];
+
+      if (playerData
+        && this._isCircleInViewPort(playerData.x, playerData.y, playerData.r * influenceMultiplier)
+      ) {
         continue;
       }
 
@@ -110,15 +105,30 @@ class Space extends Phaser.Scene {
 
   _updateAsteroids() {
     const storage = this._getStorage();
+    const influenceMultiplier = storage.worldData.asteroidAttractionRadiusMultiplier;
 
     for (const asteroidsData of Object.values(storage.worldData.asteroidsData)) {
-      if (!this.asteroids.has(asteroidsData.id)) {
-        this._createAndSpawnPlayer(asteroidsData);
+      if (!this.asteroids.has(asteroidsData.id)
+        && this._isCircleInViewPort(
+          asteroidsData.x,
+          asteroidsData.y,
+          asteroidsData.r * influenceMultiplier,
+        )
+      ) {
+        this._createAndSpawnAsteroid(asteroidsData);
       }
     }
 
     for (const [key, asteroid] of this.asteroids.entries()) {
-      if (storage.worldData.asteroidsData[key]) {
+      const asteroidData = storage.worldData.asteroidsData[key];
+
+      if (asteroidData
+        && this._isCircleInViewPort(
+          asteroidData.x,
+          asteroidData.y,
+          asteroidData.r * influenceMultiplier,
+        )
+      ) {
         continue;
       }
 
@@ -144,6 +154,17 @@ class Space extends Phaser.Scene {
     asteroid.spawn(asteroidData);
 
     return asteroid;
+  }
+
+  _isCircleInViewPort(x, y, r) {
+    const dx = 0;
+    const dy = 0;
+
+    return ((this.cameras.main.scrollX - dx - r) < x)
+      && ((this.cameras.main.scrollX + this.cameras.main.width + dx + r) > x)
+      && (this.cameras.main.scrollY - dy - r) < y
+      && (this.cameras.main.scrollY + this.cameras.main.height + dy + r) > y
+    ;
   }
 }
 
