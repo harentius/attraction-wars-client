@@ -26,11 +26,12 @@ class Player {
       this.zonesGraphics.push(graphics);
     }
 
+    const fontSize = this._getFontSize();
     this.playerNameText = this.scene.add.text(
-      16,
-      16,
+      fontSize / 2,
+      fontSize / 2,
       playerData.username,
-      { fontSize: '32px', fill: '#000', fontFamily: 'Verdana' },
+      { fontSize: `${fontSize}px`, fill: '#000', fontFamily: 'Verdana' },
     );
     this.playerNameText.setDepth(1000);
     this.redraw();
@@ -58,15 +59,27 @@ class Player {
     this.circle.x = this.playerData.x;
     this.circle.y = this.playerData.y;
     this.clear();
-    this.graphics.fillCircle(this.playerData.x, this.playerData.y, this.playerData.r);
+    this.graphics.fillCircle(this.playerData.x, this.playerData.y, this.playerData.r)
+    const fontSize = this._getFontSize();
     this.playerNameText.x = this.playerData.x - this.playerNameText.displayWidth / 2;
-    this.playerNameText.y = this.playerData.y - 16;
+    this.playerNameText.y = this.playerData.y - fontSize / 2;
+    this.playerNameText.setFontSize(fontSize);
 
     for (const [i, graphics] of Object.entries(this.zonesGraphics)) {
       const r = this.playerData.r * this.relativeZonesSizes[i];
       graphics.fillCircle(this.playerData.x, this.playerData.y, r);
       graphics.strokeCircle(this.playerData.x, this.playerData.y, r);
     }
+  }
+
+  _getFontSize() {
+    const fontSize = 26;
+
+    return fontSize / this._getStorage().zoom;
+  }
+
+  _getStorage() {
+    return this.scene.sys.game.storage;
   }
 }
 

@@ -1,3 +1,5 @@
+import config from './config';
+
 class Storage {
   static get PLAYER_DATA_CREATED() { return 'player_data_created'; }
   static get WORLD_DATA_CREATED() { return 'world_data_created'; }
@@ -5,10 +7,12 @@ class Storage {
   static get DISCONNECT() { return 'disconnect'; }
   static get UPDATE_SCORE() { return 'update_score'; }
   static get UPDATE_SERVER_STATISTICS() { return 'update_server_statistics'; }
+  static get UPDATE_ZOOM() { return 'update_zoom'; }
 
   constructor() {
     this.refresh();
     this._events = {};
+    this.zoom = 1.0;
   }
 
   refresh(
@@ -68,6 +72,10 @@ class Storage {
           Math.round(worldData.playersData[this._playerId].r),
         ]);
       }
+
+      if (worldData.playersData[this._playerId].r * this.zoom > config.maxVisibleSize) {
+        this.setZoom(this.zoom / 2);
+      }
     }
 
     Object.assign(this.playerData, worldData.playersData[this._playerId]);
@@ -115,6 +123,11 @@ class Storage {
     }
 
     this._checkConnected();
+  }
+
+  setZoom(zoom) {
+    this.zoom = zoom;
+    this.trigger(Storage.UPDATE_ZOOM, [zoom]);
   }
 
   on(event, callback) {

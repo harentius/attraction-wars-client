@@ -3,6 +3,7 @@ import config from '../../config';
 import Player from '../player/Player';
 import KeysPressState from '../../client/KeysPressState';
 import Asteroid from '../asteroid/Asteroid';
+import Storage from '../../Storage';
 
 class Space extends Phaser.Scene {
   constructor() {
@@ -31,8 +32,13 @@ class Space extends Phaser.Scene {
     this.player.spawn(storage.playerData);
 
     this.cameras.main.setSize(config.width, config.height);
+    this.cameras.main.setZoom(this._getStorage().zoom);
     this.cameras.main.setBounds(...worldBounds, true, true, true, true);
     this.cameras.main.startFollow(this.player.circle);
+
+    storage.on(Storage.UPDATE_ZOOM, (zoom) => {
+      this.cameras.main.zoomTo(zoom, 1000);
+    });
   }
 
   update() {
@@ -157,13 +163,12 @@ class Space extends Phaser.Scene {
   }
 
   _isCircleInViewPort(x, y, r) {
-    const dx = 0;
-    const dy = 0;
+    const { worldView } = this.cameras.main;
 
-    return ((this.cameras.main.scrollX - dx - r) < x)
-      && ((this.cameras.main.scrollX + this.cameras.main.width + dx + r) > x)
-      && (this.cameras.main.scrollY - dy - r) < y
-      && (this.cameras.main.scrollY + this.cameras.main.height + dy + r) > y
+    return ((worldView.x - r) < x)
+      && ((worldView.y + worldView.width + r) > x)
+      && (worldView.y - r) < y
+      && (worldView.y + worldView.height + r) > y
     ;
   }
 }
