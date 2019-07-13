@@ -1,13 +1,106 @@
-@import "~bootstrap/scss/bootstrap";
+@import "../../style/colors";
+@import "../../style/mixins/widgetFrame";
+
+$login-form-transition: all 0.3s;
 
 .form-wrapper {
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #0c011a;
 }
 
-form {
-  border: 1px solid #000;
-  padding: 20px 50px 100px 50px;
+.login-widget {
+  margin: 50px auto 0;
+  width: 90%;
+  max-width: 500px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .widget-title {
+    font-size: 26px;
+    margin-bottom: 50px;
+  }
+
+  .widget-content {
+    text-align: center;
+  }
+}
+
+.login-form-label {
+  display: block;
+  text-align: center;
+  font-family: Orbitron, sans-serif;
+  text-transform: uppercase;
+  color: $color-widget-text;
+  cursor: text;
+  font-size: 16px;
+  line-height: 16px;
+  transform: translateY(-26px);
+  transition: $login-form-transition;
+  letter-spacing: 3px;
+}
+
+.login-form-input {
+  background-color: transparent;
+  padding: 5px 20px;
+  width: 200px;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid $color-widget-border;
+  font-size: 28px;
+  font-family: Sarpanch, sans-serif;
+  color: $color-widget-text;
+  text-align: center;
+  transition: $login-form-transition;
+
+  &:focus,
+  &.valid {
+    max-width: 90%;
+    width: 260px;
+  }
+
+  &:focus + .login-form-label,
+  &.valid + .login-form-label {
+    color: $color-widget-text-secondary;
+    font-size: 12px;
+    transform: translateY(-64px);
+  }
+}
+
+.login-form-button {
+  margin-top: 40px;
+  padding: 20px 40px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background: $color-widget-bg-dark;
+  width: 300px;
+  font-size: 20px;
+  line-height: 20px;
+  font-family: Orbitron, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: bold;
+  color: $color-widget-text;
+  cursor: pointer;
+  transition: $login-form-transition;
+  position: relative;
+
+  &:before {
+    @include widgetFrame(10px, 5px, (top, left));
+  }
+
+  &:after {
+    @include widgetFrame(10px, 5px, (bottom, right));
+  }
+
+  &:hover {
+    background: $color-widget-bg;
+  }
 }

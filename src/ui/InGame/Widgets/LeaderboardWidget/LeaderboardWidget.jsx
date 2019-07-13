@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Storage from '../../../../Storage';
 import getLeaderboard from './services/getLeaderboard';
 import './LeaderboardWidget.scss';
+import Widget from '../../../Widget/Widget.jsx';
 
 class LeaderboardWidget extends React.Component {
   constructor(props) {
@@ -25,12 +26,21 @@ class LeaderboardWidget extends React.Component {
   }
 
   render() {
-    return <div className="in-game-widget leaderboard-widget">
-      <h4>Leaderboard</h4>
-      {this.state.leaderboard.map((p) =>
-        <p className={p.isCurrentPlayer ? 'current-player' : 'other-player'} key={p.position}>{p.position}. {p.username} {p.score}</p>,
-      )}
-    </div>;
+    return (
+      <Widget title="Leaderboard" className="leaderboard-widget">
+        <table>
+          <tbody>
+            {this.state.leaderboard.map((p) =>
+              <tr className={`player ${p.isCurrentPlayer ? 'current-player' : ''}`} key={p.position}>
+                <td className="player-position">{p.position}</td>
+                <td className="player-name">{p.username}</td>
+                <td className="player-score">{p.score}</td>
+              </tr>,
+            )}
+          </tbody>
+        </table>
+      </Widget>
+    );
   }
 }
 

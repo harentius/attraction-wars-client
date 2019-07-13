@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Storage from '../../../../Storage';
-import '../../Widget.scss';
 import './ScoreWidget.scss';
+import Widget from '../../../Widget/Widget.jsx';
 
 class ScoreWidget extends React.Component {
   constructor(props) {
@@ -22,10 +22,12 @@ class ScoreWidget extends React.Component {
   }
 
   render() {
-    return <div className="in-game-widget score-widget">
-      <p className="score">Score: { this.state.score }</p>
-      <p>Size: { this.state.size }</p>
-    </div>;
+    return (
+      <Widget title="Score" className="score-widget">
+        <p className="score">Score: { this.state.score }</p>
+        <p>Size: { this.state.size }</p>
+      </Widget>
+    );
   }
 }
 

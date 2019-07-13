@@ -1,0 +1,16 @@
+@import "../colors";
+
+@mixin widgetFrame($length, $offset, $positions: (top, right, bottom, left)) {
+  content: " ";
+  width: $length;
+  height: $length;
+  position: absolute;
+  border: 1px solid transparent;
+  pointer-events: none;
+
+  @debug $positions;
+  @each $position in $positions {
+    #{$position}: $offset;
+    border-#{$position}-color: $color-widget-border;
+  }
+}

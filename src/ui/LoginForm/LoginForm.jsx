@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../Widget/Widget.scss';
 import './LoginForm.scss';
 import Client from '../../client/Client';
+import Widget from '../Widget/Widget.jsx';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -24,13 +26,20 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div className="form-wrapper">
-        <form onSubmit={this.handleSubmit} className="login-form">
-          <label>
-            Nickname:
-            <input type="text" value={this.state.name} onChange={this.onChange}/>
-          </label>
-          <input className="btn btn-success" type="submit" value="Submit"/>
-        </form>
+        <Widget className="login-widget" title="Attraction Wars">
+          <form onSubmit={this.handleSubmit} className="login-form">
+            <label>
+              <input
+                type="text"
+                value={this.state.name}
+                onChange={this.onChange}
+                className={`login-form-input ${this.state.name ? 'valid' : ''}`}
+              />
+              <div className="login-form-label">Name</div>
+            </label>
+            <button type="submit" className="login-form-button">Start</button>
+          </form>
+        </Widget>
       </div>
     );
   }

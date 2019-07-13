@@ -1,7 +1,26 @@
+@import "../../../../style/colors";
+
 .leaderboard-widget {
   max-width: 300px;
 
+  .player {
+    color: $color-widget-text;
+    font-family: Sarpanch, sans-serif;
+    font-size: 16px;
+    padding: 5px 0 0;
+    width: 100%;
+  }
+
   .current-player {
-    color: #91000e;
+    font-weight: bold;
+  }
+
+  .player-position {
+    display: inline-block;
+    width: 20px;
+  }
+
+  .player-name {
+    width: 100%;
   }
 }
