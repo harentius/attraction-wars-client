@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../Widget.scss';
-import Storage from '../../../Storage';
+import './ServerStatisticsWidget.scss';
+import Storage from '../../../../Storage';
+import Widget from '../../../Widget/Widget.jsx';
 
 class ServerStatisticsWidget extends React.Component {
   constructor(props) {
@@ -25,12 +26,14 @@ class ServerStatisticsWidget extends React.Component {
   }
 
   render() {
-    return <div className="in-game-widget server-statistics-widget">
-      <p>Online Players: { this.state.serverStatistics.onlineCount }</p>
-      <p>Server Load: { this.state.serverStatistics.loadPercent }%</p>
-      <p>Server Average Load: { this.state.serverStatistics.averageLoadPercent }%</p>
-      <p>Server Max Load: { this.state.serverStatistics.maxLoadPercent }%</p>
-    </div>;
+    return (
+      <Widget className="server-statistics-widget">
+        <p>Online Players: { this.state.serverStatistics.onlineCount }</p>
+        <p>Server Load: { this.state.serverStatistics.loadPercent }%</p>
+        <p>Server Average Load: { this.state.serverStatistics.averageLoadPercent }%</p>
+        <p>Server Max Load: { this.state.serverStatistics.maxLoadPercent }%</p>
+      </Widget>
+    );
   }
 }
 
