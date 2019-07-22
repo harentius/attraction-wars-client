@@ -5,17 +5,24 @@ import ServerStatisticsWidget from '../Widgets/ServerStatisticsWidget/ServerStat
 import Storage from '../../../Storage';
 import './InGame.scss';
 import LeaderboardWidget from '../Widgets/LeaderboardWidget/LeaderboardWidget.jsx';
+import MinimapWidget from '../Widgets/MiniMapWidget/MiniMapWidget.jsx';
 
 class InGame extends React.Component {
   render() {
     return <div className="in-game">
-      <div className="left-widgets-wrapper">
-        <ScoreWidget storage={this.props.storage}/>
-        <ServerStatisticsWidget storage={this.props.storage}/>
+      <div className="widgets-row">
+        <div className="left-widgets-wrapper">
+          <ScoreWidget storage={this.props.storage} />
+          <ServerStatisticsWidget storage={this.props.storage} />
+        </div>
+
+        <div>
+          <LeaderboardWidget storage={this.props.storage} />
+        </div>
       </div>
 
-      <div>
-        <LeaderboardWidget storage={this.props.storage}/>
+      <div className="widgets-row">
+        <MinimapWidget storage={this.props.storage} />
       </div>
     </div>;
   }

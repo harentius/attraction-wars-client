@@ -11,19 +11,12 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     app: [path.resolve(__dirname, 'src/app.js')],
-    vendor: ['phaser'],
   },
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'public/dist'),
     publicPath: './public/dist/',
     filename: '[name].js',
-  },
-  optimization: {
-    splitChunks: {
-      name: 'vendor',
-      filename: 'vendor.bundle.js',
-    },
   },
   watch: true,
   plugins: [
