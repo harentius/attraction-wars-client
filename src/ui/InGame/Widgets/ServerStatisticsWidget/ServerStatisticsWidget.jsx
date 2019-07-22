@@ -27,7 +27,7 @@ class ServerStatisticsWidget extends React.Component {
 
   render() {
     return (
-      <Widget className="server-statistics-widget">
+      <Widget className="server-statistics-widget" title="Server Statistics">
         <p>Online Players: { this.state.serverStatistics.onlineCount }</p>
         <p>Server Load: { this.state.serverStatistics.loadPercent }%</p>
         <p>Server Average Load: { this.state.serverStatistics.averageLoadPercent }%</p>
