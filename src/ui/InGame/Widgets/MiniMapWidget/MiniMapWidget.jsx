@@ -1,28 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './MiniMapWidget.scss';
 import Storage from '../../../../Storage';
+import Widget from '../../../Widget/Widget.jsx';
+import updateMiniMap from './services/updateMiniMap';
 
 class MiniMapWidget extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+  componentDidMount() {
+    this.updateMiniMap();
 
-    setInterval(() => {
-
-    }, 2000);
-    props.storage.on(Storage.UPDATE_SCORE, (score, size) => {
-      this.setState({ score, size });
-    });
+    this.interval = setInterval(() => {
+      this.updateMiniMap();
+    }, 500);
   }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   render() {
     return (
-      <div className="in-game-widget minimap-widget">
-        <canvas>
-
-        </canvas>
-      </div>
+      <Widget title="Mini Map" className="in-game-widget minimap-widget">
+        <canvas id="minimap" width="300" height="300" />
+      </Widget>
     );
+  }
+
+  updateMiniMap() {
+    const canvas = document.getElementById('minimap');
+    const { worldData, playerData } = this.props.storage;
+    updateMiniMap(canvas, worldData, playerData);
   }
 }
 
