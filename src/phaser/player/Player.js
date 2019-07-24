@@ -9,7 +9,7 @@ class Player {
     this.scene = scene;
     this.relativeZonesSizes = relativeZonesSizes;
     this.alphas = [1, 0.6, 0.4];
-    this.circle = null;
+    this.sprite = null;
     this.zonesGraphics = [];
     this.playerData = null;
     this.playerNameText = null;
@@ -17,7 +17,7 @@ class Player {
 
   spawn(playerData) {
     this.playerData = playerData;
-    this.circle = this.scene.add.sprite(playerData.x, playerData.y, `planet-${playerData.color}`);
+    this.sprite = this.scene.add.sprite(playerData.x, playerData.y, `planet-${playerData.color}`);
 
     for (let i = 0; i < Object.keys(this.relativeZonesSizes).length; i++) {
       const graphics = this.scene.add.graphics();
@@ -50,10 +50,10 @@ class Player {
   }
 
   redraw() {
-    this.circle.x = this.playerData.x;
-    this.circle.y = this.playerData.y;
-    this.circle.displayWidth = 2 * this.playerData.r;
-    this.circle.displayHeight = 2 * this.playerData.r;
+    this.sprite.x = this.playerData.x;
+    this.sprite.y = this.playerData.y;
+    this.sprite.displayWidth = 2 * this.playerData.r;
+    this.sprite.displayHeight = 2 * this.playerData.r;
     this.clear();
     const scale = 1.0 / this._getStorage().zoom;
     this.playerNameText.x = this.playerData.x - this.playerNameText.displayWidth / 2;
