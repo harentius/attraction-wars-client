@@ -165,10 +165,10 @@ class Space extends Phaser.Scene {
   _isCircleInViewPort(x, y, r) {
     const { worldView } = this.cameras.main;
 
-    return ((worldView.x - r) < x)
-      && ((worldView.y + worldView.width + r) > x)
-      && (worldView.y - r) < y
-      && (worldView.y + worldView.height + r) > y
+    return ((worldView.left - r) < x)
+      && ((worldView.right + r) > x)
+      && (worldView.top - r) < y
+      && (worldView.bottom + r) > y
     ;
   }
 }
