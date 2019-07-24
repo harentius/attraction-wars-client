@@ -17,7 +17,11 @@ class Space extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('background', 'assets/images/space.jpeg');
+    this.load.image('background', 'assets/images/space.png');
+
+    for (let i = 0; i < 10; i++) {
+      this.load.image(`planet-${i}`, `assets/images/planets/${i}.png`);
+    }
   }
 
   create() {

@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 export default {
   // TODO
   serverUrl: 'http://localhost:4000',
-  type: Phaser.AUTO,
+  type: Phaser.WEBGL,
   width: window.innerWidth,
   height: window.innerHeight,
   localStorageName: 'attraction-wars',
