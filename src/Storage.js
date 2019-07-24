@@ -10,9 +10,9 @@ class Storage {
   static get UPDATE_ZOOM() { return 'update_zoom'; }
 
   constructor() {
-    this.refresh();
     this._events = {};
     this.zoom = 1.0;
+    this.refresh();
   }
 
   refresh(
@@ -34,6 +34,10 @@ class Storage {
     this.playerData = playerData;
     this._playerId = null;
     this.isConnected = false;
+
+    if (this._events[Storage.UPDATE_ZOOM]) {
+      delete this._events[Storage.UPDATE_ZOOM];
+    }
   }
 
   updateWorldData(worldData) {
@@ -75,6 +79,10 @@ class Storage {
 
       if (worldData.playersData[this._playerId].r * this.zoom > config.maxVisibleSize) {
         this.setZoom(this.zoom / 2);
+      }
+
+      if (worldData.playersData[this._playerId].r * this.zoom < config.minVisibleSize) {
+        this.setZoom(this.zoom * 2);
       }
     }
 

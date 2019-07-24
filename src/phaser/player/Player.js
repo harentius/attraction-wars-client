@@ -1,5 +1,8 @@
 const ZONE_LINE_WIDTH = 2;
 const ZONE_LINE_COLOR = 0x634269;
+const PLAYERS_NAME_FONT_SIZE = 26;
+const PLAYERS_NAME_COLOR = '#000';
+const PLAYERS_NAME_SHADOW_COLOR = '#fff';
 
 class Player {
   constructor(scene, relativeZonesSizes) {
@@ -21,14 +24,14 @@ class Player {
       this.zonesGraphics.push(graphics);
     }
 
-    const fontSize = this._getFontSize();
     this.playerNameText = this.scene.add.text(
-      fontSize / 2,
-      fontSize / 2,
+      0,
+      PLAYERS_NAME_FONT_SIZE / 2,
       playerData.username,
-      { fontSize: `${fontSize}px`, fill: '#000', fontFamily: 'Verdana' },
+      { fontSize: PLAYERS_NAME_FONT_SIZE, fill: PLAYERS_NAME_COLOR, fontFamily: 'Verdana' },
     );
     this.playerNameText.setDepth(1000);
+    this.playerNameText.setShadow(1, 1, PLAYERS_NAME_SHADOW_COLOR, 2, false);
     this.redraw();
   }
 
@@ -52,10 +55,10 @@ class Player {
     this.circle.displayWidth = 2 * this.playerData.r;
     this.circle.displayHeight = 2 * this.playerData.r;
     this.clear();
-    const fontSize = this._getFontSize();
+    const scale = 1.0 / this._getStorage().zoom;
     this.playerNameText.x = this.playerData.x - this.playerNameText.displayWidth / 2;
-    this.playerNameText.y = this.playerData.y - fontSize / 2;
-    this.playerNameText.setFontSize(fontSize);
+    this.playerNameText.y = this.playerData.y - PLAYERS_NAME_FONT_SIZE * scale / 2;
+    this.playerNameText.setScale(scale);
 
     for (const [i, graphics] of Object.entries(this.zonesGraphics)) {
       const r = this.playerData.r * this.relativeZonesSizes[i];
@@ -66,12 +69,6 @@ class Player {
       );
       graphics.strokeCircle(this.playerData.x, this.playerData.y, r);
     }
-  }
-
-  _getFontSize() {
-    const fontSize = 26;
-
-    return fontSize / this._getStorage().zoom;
   }
 
   _getStorage() {
