@@ -1,12 +1,12 @@
-import Phaser from 'phaser';
-
 const ASTEROID_COLOR = 0xa1a7af;
+const ZONE_LINE_WIDTH = 2;
+const LINE_COLOR = 0x56473d;
 
 class Asteroid {
   constructor(scene, asteroidAttractionRadiusMultiplier) {
     this.scene = scene;
     this.asteroidAttractionRadiusMultiplier = asteroidAttractionRadiusMultiplier;
-    this.circle = null;
+    this.sprite = null;
     this.graphics = null;
     this.gravityZoneGraphics = null;
     this.asteroidData = null;
@@ -14,25 +14,34 @@ class Asteroid {
 
   spawn(asteroidData) {
     this.asteroidData = asteroidData;
-    this.circle = new Phaser.Geom.Circle(asteroidData.x, asteroidData.y, asteroidData.r);
+    // this.sprite = new Phaser.Geom.Circle(asteroidData.x, asteroidData.y, asteroidData.r);
+    this.sprite = this.scene.add.sprite(asteroidData.x, asteroidData.y, `asteroid-${asteroidData.color}`);
     this.graphics = this.scene.add.graphics({ fillStyle: { color: ASTEROID_COLOR } });
 
     this.gravityZoneGraphics = this.scene.add.graphics({
       fillStyle: { color: ASTEROID_COLOR, alpha: 100 },
-      lineStyle: { color: 0xffffff, width: 1, alpha: 1 },
+      lineStyle: { color: LINE_COLOR, width: ZONE_LINE_WIDTH, alpha: 1 },
     });
     this.redraw();
   }
 
   redraw() {
-    this.destroy();
-    this.graphics.fillCircle(this.asteroidData.x, this.asteroidData.y, this.asteroidData.r);
+    this._clear();
+    this.sprite.x = this.asteroidData.x;
+    this.sprite.y = this.asteroidData.y;
+    this.sprite.displayWidth = 2 * this.asteroidData.r;
+    this.sprite.displayHeight = 2 * this.asteroidData.r;
+
     const r = this.asteroidData.r * this.asteroidAttractionRadiusMultiplier;
-    this.gravityZoneGraphics.fillCircle(this.asteroidData.x, this.asteroidData.y, r);
     this.gravityZoneGraphics.strokeCircle(this.asteroidData.x, this.asteroidData.y, r);
   }
 
   destroy() {
+    this.sprite.destroy();
+    this._clear();
+  }
+
+  _clear() {
     this.graphics.clear();
     this.gravityZoneGraphics.clear();
   }

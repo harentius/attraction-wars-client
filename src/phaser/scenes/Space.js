@@ -22,6 +22,10 @@ class Space extends Phaser.Scene {
     for (let i = 0; i < 10; i++) {
       this.load.image(`planet-${i}`, `assets/images/planets/${i}.png`);
     }
+
+    for (let i = 0; i < 10; i++) {
+      this.load.image(`asteroid-${i}`, `assets/images/asteroids/${i}.png`);
+    }
   }
 
   create() {
@@ -38,7 +42,7 @@ class Space extends Phaser.Scene {
     this.cameras.main.setSize(config.width, config.height);
     this.cameras.main.setZoom(this._getStorage().zoom);
     this.cameras.main.setBounds(...worldBounds, true, true, true, true);
-    this.cameras.main.startFollow(this.player.circle);
+    this.cameras.main.startFollow(this.player.sprite);
 
     storage.on(Storage.UPDATE_ZOOM, (zoom) => {
       this.cameras.main.zoomTo(zoom, 1000);
