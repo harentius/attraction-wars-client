@@ -1,3 +1,7 @@
+const PLAYER_COLOR = '#27ff00';
+const OTHER_PLAYER_COLOR = 'red';
+const ASTEROID_COLOR = '#aaaaaa';
+
 const drawObject = (x, y, r, ctx) => {
   ctx.beginPath();
   ctx.arc(x, y, r, 0, 2 * Math.PI);
@@ -40,9 +44,23 @@ const updateMiniMap = (canvas, worldData, playerData) => {
   const scaleSize = 2.5 * sclaleX;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawObjectsCollection(worldData.asteroidsData, sclaleX, sclaleY, scaleSize, 'white', ctx);
-  drawObjectsCollection(worldData.playersData, sclaleX, sclaleY, scaleSize, 'blue', ctx);
-  drawCurrentPlayer(playerData, sclaleX, sclaleY, scaleSize, 'red', ctx);
+  drawObjectsCollection(
+    worldData.asteroidsData,
+    sclaleX,
+    sclaleY,
+    scaleSize,
+    ASTEROID_COLOR,
+    ctx,
+  );
+  drawObjectsCollection(
+    worldData.playersData,
+    sclaleX,
+    sclaleY,
+    scaleSize,
+    OTHER_PLAYER_COLOR,
+    ctx
+  );
+  drawCurrentPlayer(playerData, sclaleX, sclaleY, scaleSize, PLAYER_COLOR, ctx);
 };
 
 export default updateMiniMap;

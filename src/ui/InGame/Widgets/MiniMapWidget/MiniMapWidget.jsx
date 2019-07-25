@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Storage from '../../../../Storage';
 import Widget from '../../../Widget/Widget.jsx';
 import updateMiniMap from './services/updateMiniMap';
+import './MiniMapWidget.scss';
 
 class MiniMapWidget extends React.Component {
   componentDidMount() {
@@ -20,7 +21,7 @@ class MiniMapWidget extends React.Component {
   render() {
     return (
       <Widget title="Mini Map" className="in-game-widget minimap-widget">
-        <canvas id="minimap" width="300" height="300" />
+        <canvas id="minimap" className="minimap" width="300" height="300" />
       </Widget>
     );
   }
