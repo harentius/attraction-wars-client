@@ -42,6 +42,8 @@ class Player {
   }
 
   destroy() {
+    this.sprite.destroy();
+
     for (const [, graphics] of Object.entries(this.zonesGraphics)) {
       graphics.destroy();
     }
