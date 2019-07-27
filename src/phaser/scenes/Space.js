@@ -14,6 +14,7 @@ class Space extends Phaser.Scene {
     this.previousKeysPressState = new KeysPressState();
     this.keysPressState = new KeysPressState();
     this.cursors = null;
+    this.background = null;
   }
 
   preload() {
@@ -36,16 +37,17 @@ class Space extends Phaser.Scene {
     const storage = this._getStorage();
     this.player = new Player(this, storage.worldData.relativeZonesSizes);
 
-    const { worldBounds } = storage.worldData;
-    // TODO: optimize tile so it don't consume memory
-    this.add.tileSprite(worldBounds[2] / 2, worldBounds[3] / 2, worldBounds[2], worldBounds[3], 'background');
+    const x0 = storage.playerData.x;
+    const y0 = storage.playerData.y;
+    this.background = this.add.tileSprite(x0, y0, config.width, config.height, 'background');
+
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.player.spawn(storage.playerData);
 
     this.cameras.main.setSize(config.width, config.height);
     this.cameras.main.setZoom(this._getStorage().zoom);
-    this.cameras.main.setBounds(...worldBounds, true, true, true, true);
+    this.cameras.main.setBounds(...storage.worldData.worldBounds, true, true, true, true);
     this.cameras.main.startFollow(this.player.sprite);
 
     storage.on(Storage.UPDATE_ZOOM, (zoom) => {
@@ -67,6 +69,10 @@ class Space extends Phaser.Scene {
 
     this.player.redraw();
     this._handleInput();
+    const { worldView } = this.cameras.main;
+    this.background.setTilePosition(worldView.centerX, worldView.centerY);
+    this.background.x = worldView.centerX;
+    this.background.y = worldView.centerY;
   }
 
   _handleInput() {
