@@ -34,10 +34,17 @@ class LoginForm extends React.Component {
                 value={this.state.name}
                 onChange={this.onChange}
                 className={`login-form-input ${this.state.name ? 'valid' : ''}`}
+                maxLength="18"
               />
               <div className="login-form-label">Name</div>
             </label>
-            <button type="submit" className="login-form-button">Start</button>
+            <button
+              type="submit"
+              className="login-form-button"
+              disabled={!this.state.name.length}
+            >
+              Start
+            </button>
           </form>
         </Widget>
       </div>
