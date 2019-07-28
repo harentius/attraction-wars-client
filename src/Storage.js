@@ -35,9 +35,8 @@ class Storage {
     this._playerId = null;
     this.isConnected = false;
 
-    if (this._events[Storage.UPDATE_ZOOM]) {
-      delete this._events[Storage.UPDATE_ZOOM];
-    }
+    delete this._events[Storage.UPDATE_ZOOM];
+    delete this._events[Storage.UPDATE_SCORE];
   }
 
   updateWorldData(worldData) {

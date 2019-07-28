@@ -52,6 +52,9 @@ class Space extends Phaser.Scene {
 
     storage.on(Storage.UPDATE_ZOOM, (zoom) => {
       this.cameras.main.zoomTo(zoom, 1000);
+      this.background.destroy();
+      this.background = this.add.tileSprite(x0, y0, config.width / zoom, config.height / zoom, 'background');
+      this.background.setDepth(-1000);
     });
   }
 
