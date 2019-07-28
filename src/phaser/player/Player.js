@@ -1,8 +1,15 @@
+import Phaser from 'phaser';
+import Storage from '../../Storage';
+
 const ZONE_LINE_WIDTH = 2;
 const ZONE_LINE_COLOR = 0x634269;
 const PLAYERS_NAME_FONT_SIZE = 26;
 const PLAYERS_NAME_COLOR = '#000';
 const PLAYERS_NAME_SHADOW_COLOR = '#fff';
+
+const SCORE_MIN_VISIBLE_CHANGE = 2;
+const SCORE_TEXT_SIZE = 30;
+const SCORE_TEXT_COLOR = '#fff';
 
 class Player {
   constructor(scene, relativeZonesSizes) {
@@ -33,6 +40,14 @@ class Player {
     this.playerNameText.setDepth(1000);
     this.playerNameText.setShadow(1, 1, PLAYERS_NAME_SHADOW_COLOR, 2, false);
     this.redraw();
+
+    this._getStorage().on(Storage.UPDATE_SCORE, (oldScore, score) => {
+      const scoreChange = score - oldScore;
+
+      if (scoreChange > SCORE_MIN_VISIBLE_CHANGE) {
+        this._showScoreAcquiration(scoreChange);
+      }
+    });
   }
 
   clear() {
@@ -57,7 +72,7 @@ class Player {
     this.sprite.displayWidth = 2 * this.playerData.r;
     this.sprite.displayHeight = 2 * this.playerData.r;
     this.clear();
-    const scale = 1.0 / this._getStorage().zoom;
+    const scale = this._getStorage().getScale();
     this.playerNameText.x = this.playerData.x - this.playerNameText.displayWidth / 2;
     this.playerNameText.y = this.playerData.y - PLAYERS_NAME_FONT_SIZE * scale / 2;
     this.playerNameText.setScale(scale);
@@ -65,7 +80,7 @@ class Player {
     for (const [i, graphics] of Object.entries(this.zonesGraphics)) {
       const r = this.playerData.r * this.relativeZonesSizes[i];
       graphics.lineStyle(
-        ZONE_LINE_WIDTH / this._getStorage().zoom,
+        ZONE_LINE_WIDTH * scale,
         ZONE_LINE_COLOR,
         this.alphas[i],
       );
@@ -75,6 +90,32 @@ class Player {
 
   _getStorage() {
     return this.scene.sys.game.storage;
+  }
+
+  _showScoreAcquiration(score) {
+    const text = this.scene.add.text(
+      0,
+      SCORE_TEXT_SIZE / 2,
+      score,
+      { fontSize: SCORE_TEXT_SIZE, fill: SCORE_TEXT_COLOR, fontFamily: 'Verdana' },
+    );
+
+    const scale = this._getStorage().getScale();
+    text.setScale(scale);
+
+    this.scene.tweens.addCounter({
+      from: 1,
+      to: 0,
+      duration: 2000,
+      onUpdate: (tween) => {
+        text.setAlpha(tween.getValue());
+        text.x = this.playerData.x - 1.5 * this.playerData.r - text.displayWidth / 2;
+        text.y = this.playerData.y - 1.5 * this.playerData.r - SCORE_TEXT_SIZE * scale / 2;
+      },
+      onComplete: () => {
+        text.destroy();
+      },
+    });
   }
 }
 

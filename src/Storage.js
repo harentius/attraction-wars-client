@@ -67,10 +67,12 @@ class Storage {
 
     // Current player data sync
     if (worldData.playersData[this._playerId]) {
+      const oldScore = Math.round(this.playerData.score);
       const newScore = Math.round(worldData.playersData[this._playerId].score);
 
-      if (this.playerData.score !== newScore) {
+      if (oldScore !== newScore) {
         this.trigger(Storage.UPDATE_SCORE, [
+          oldScore,
           newScore,
           Math.round(worldData.playersData[this._playerId].r),
         ]);
@@ -135,6 +137,10 @@ class Storage {
   setZoom(zoom) {
     this.zoom = zoom;
     this.trigger(Storage.UPDATE_ZOOM, [zoom]);
+  }
+
+  getScale() {
+    return 1.0 / this.zoom;
   }
 
   on(event, callback) {

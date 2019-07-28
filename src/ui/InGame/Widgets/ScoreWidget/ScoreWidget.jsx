@@ -12,7 +12,7 @@ class ScoreWidget extends React.Component {
       size: 0,
     };
 
-    props.storage.on(Storage.UPDATE_SCORE, (score, size) => {
+    props.storage.on(Storage.UPDATE_SCORE, (oldScore, score, size) => {
       this.setState({ score, size });
     });
   }
