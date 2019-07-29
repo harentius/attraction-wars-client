@@ -13,9 +13,10 @@ const SCORE_TEXT_COLOR = '#92ff5b';
 const SCORE_TEXT_SHADOW_COLOR = '#f6ff00';
 
 class Player {
-  constructor(scene, relativeZonesSizes) {
+  constructor(scene, relativeZonesSizes, showScores = false) {
     this.scene = scene;
     this.relativeZonesSizes = relativeZonesSizes;
+    this.showScores = showScores;
     this.alphas = [1, 0.6, 0.4];
     this.sprite = null;
     this.zonesGraphics = [];
@@ -42,13 +43,15 @@ class Player {
     this.playerNameText.setShadow(1, 1, PLAYERS_NAME_SHADOW_COLOR, 2, false);
     this.redraw();
 
-    this._getStorage().on(Storage.UPDATE_SCORE, (oldScore, score) => {
-      const scoreChange = score - oldScore;
+    if (this.showScores) {
+      this._getStorage().on(Storage.UPDATE_SCORE, (oldScore, score) => {
+        const scoreChange = score - oldScore;
 
-      if (scoreChange > SCORE_MIN_VISIBLE_CHANGE) {
-        this._showScoreAcquiration(scoreChange);
-      }
-    });
+        if (scoreChange >= SCORE_MIN_VISIBLE_CHANGE) {
+          this._showScoreAcquiration(scoreChange);
+        }
+      });
+    }
   }
 
   clear() {

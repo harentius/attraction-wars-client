@@ -37,7 +37,7 @@ class Space extends Phaser.Scene {
 
   create() {
     const storage = this._getStorage();
-    this.player = new Player(this, storage.worldData.relativeZonesSizes);
+    this.player = new Player(this, storage.worldData.relativeZonesSizes, true);
 
     const x0 = storage.playerData.x;
     const y0 = storage.playerData.y;
