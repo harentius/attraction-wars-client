@@ -11,7 +11,6 @@ class Storage {
 
   constructor() {
     this._events = {};
-    this.zoom = 1.0;
     this.refresh();
   }
 
@@ -34,6 +33,7 @@ class Storage {
     this.playerData = playerData;
     this._playerId = null;
     this.isConnected = false;
+    this.zoom = 1.0;
 
     delete this._events[Storage.UPDATE_ZOOM];
     delete this._events[Storage.UPDATE_SCORE];
