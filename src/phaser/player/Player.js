@@ -10,7 +10,7 @@ const PLAYERS_NAME_SHADOW_COLOR = '#fff';
 const SCORE_MIN_VISIBLE_CHANGE = 2;
 const SCORE_TEXT_SIZE = 30;
 const SCORE_TEXT_COLOR = '#92ff5b';
-const SCORE_TEXT_SHADOW_COLOR = '#feff98';
+const SCORE_TEXT_SHADOW_COLOR = '#f6ff00';
 
 class Player {
   constructor(scene, relativeZonesSizes) {
