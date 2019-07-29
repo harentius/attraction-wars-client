@@ -1,0 +1,50 @@
+#!/bin/bash
+
+source_dir=$1
+target_dir=$2
+
+if [ -z "$source_dir" ]; then
+    echo "Error: Missing source dir"
+    exit 1
+fi
+
+if [ -z "$target_dir" ]; then
+    echo "Error: Missing target dir"
+    exit 1
+fi
+
+if ! [ -x "$(command -v pngquant)" ]; then
+  echo 'Error: pngquant is not installed.' >&2
+  exit 1
+fi
+
+find_png_files() {
+    find "$source_dir" -name '*.png' -print0
+}
+
+find_jpg_files() {
+    find "$source_dir" -name '*.jpg' -print0
+}
+
+find_png_files |
+while IFS= read -r -d $'\0' i; do
+    echo "Optimizing ${i}"
+    filename=$(basename ${i:1})
+    output_file="${target_dir}/${filename}"
+    output_dir=$(dirname "$output_file")
+    echo "Writing $output_file"
+
+    mkdir -p "$output_dir"
+    pngquant "$i" --strip --force --verbose --output "$output_file"
+done
+
+find_jpg_files |
+while IFS= read -r -d $'\0' i; do
+    echo "Optimizing ${i}"
+    filename=$(basename ${i:1})
+    output_file="${target_dir}/${filename}"
+    output_dir=$(dirname "$output_file")
+
+    mkdir -p "$output_dir"
+    jpegoptim "${i}" --dest="$output_dir" --strip-all
+done
