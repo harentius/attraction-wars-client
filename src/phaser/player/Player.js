@@ -9,7 +9,8 @@ const PLAYERS_NAME_SHADOW_COLOR = '#fff';
 
 const SCORE_MIN_VISIBLE_CHANGE = 2;
 const SCORE_TEXT_SIZE = 30;
-const SCORE_TEXT_COLOR = '#fff';
+const SCORE_TEXT_COLOR = '#92ff5b';
+const SCORE_TEXT_SHADOW_COLOR = '#feff98';
 
 class Player {
   constructor(scene, relativeZonesSizes) {
@@ -99,6 +100,7 @@ class Player {
       score,
       { fontSize: SCORE_TEXT_SIZE, fill: SCORE_TEXT_COLOR, fontFamily: 'Verdana' },
     );
+    text.setShadow(1, 1, SCORE_TEXT_SHADOW_COLOR, 5, false);
 
     const scale = this._getStorage().getScale();
     text.setScale(scale);
