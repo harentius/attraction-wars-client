@@ -31,6 +31,8 @@ class Space extends Phaser.Scene {
     for (let i = 0; i < 10; i++) {
       this.load.image(`asteroid-${i}`, `assets/images/asteroids/${i}.png`);
     }
+
+    text.destroy();
   }
 
   create() {

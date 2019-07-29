@@ -1,5 +1,5 @@
-import Phaser from 'phaser';
 import Storage from '../../Storage';
+import { random } from '../../utils';
 
 const ZONE_LINE_WIDTH = 2;
 const ZONE_LINE_COLOR = 0x634269;
@@ -103,14 +103,17 @@ class Player {
     const scale = this._getStorage().getScale();
     text.setScale(scale);
 
+    const xShift = random(-1.3, 1.3);
+    const yShift = random(1.4, 2.0);
+
     this.scene.tweens.addCounter({
       from: 1,
       to: 0,
       duration: 2000,
       onUpdate: (tween) => {
         text.setAlpha(tween.getValue());
-        text.x = this.playerData.x - 1.5 * this.playerData.r - text.displayWidth / 2;
-        text.y = this.playerData.y - 1.5 * this.playerData.r - SCORE_TEXT_SIZE * scale / 2;
+        text.x = this.playerData.x - xShift * this.playerData.r;
+        text.y = this.playerData.y - yShift * this.playerData.r;
       },
       onComplete: () => {
         text.destroy();
