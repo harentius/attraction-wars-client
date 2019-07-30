@@ -78,12 +78,16 @@ class Storage {
         ]);
       }
 
-      if (worldData.playersData[this._playerId].r * this.zoom > config.maxVisibleSize) {
-        this.setZoom(this.zoom / 2);
+      if (worldData.playersData[this._playerId].r * this.zoom > config.maxVisibleSize
+        && this.zoom - config.zoomChange >= config.minZoom
+      ) {
+        this.setZoom(this.zoom - config.zoomChange);
       }
 
-      if (worldData.playersData[this._playerId].r * this.zoom < config.minVisibleSize) {
-        this.setZoom(this.zoom * 2);
+      if (worldData.playersData[this._playerId].r * this.zoom < config.minVisibleSize
+        && this.zoom + config.zoomChange <= config.maxZoom
+      ) {
+        this.setZoom(this.zoom + config.zoomChange);
       }
     }
 

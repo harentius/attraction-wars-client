@@ -7,6 +7,9 @@ export default {
   width: window.innerWidth,
   height: window.innerHeight,
   localStorageName: 'attraction-wars',
-  maxVisibleSize: 100,
+  maxVisibleSize: 120,
   minVisibleSize: 30,
+  minZoom: 0.4,
+  maxZoom: 1.4,
+  zoomChange: 0.2,
 };
