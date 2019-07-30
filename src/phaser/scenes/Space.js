@@ -42,6 +42,7 @@ class Space extends Phaser.Scene {
     const x0 = storage.playerData.x;
     const y0 = storage.playerData.y;
     this.background = this.add.tileSprite(x0, y0, config.width, config.height, 'background');
+    this.background.setDepth(-1000);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 

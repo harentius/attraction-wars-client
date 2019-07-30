@@ -89,6 +89,7 @@ class Player {
         this.alphas[i],
       );
       graphics.strokeCircle(this.playerData.x, this.playerData.y, r);
+      graphics.setDepth(-500);
     }
   }
 

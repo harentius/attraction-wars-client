@@ -22,6 +22,7 @@ class Asteroid {
       fillStyle: { color: ASTEROID_COLOR, alpha: 100 },
       lineStyle: { color: LINE_COLOR, width: ZONE_LINE_WIDTH, alpha: 1 },
     });
+    this.gravityZoneGraphics.setDepth(-500);
     this.redraw();
   }
 
