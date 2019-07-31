@@ -41,7 +41,13 @@ class Space extends Phaser.Scene {
 
     const x0 = storage.playerData.x;
     const y0 = storage.playerData.y;
-    this.background = this.add.tileSprite(x0, y0, config.width, config.height, 'background');
+    this.background = this.add.tileSprite(
+      x0,
+      y0,
+      config.width / config.minZoom,
+      config.height / config.minZoom,
+      'background',
+    );
     this.background.setDepth(-1000);
 
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -55,9 +61,6 @@ class Space extends Phaser.Scene {
 
     storage.on(Storage.UPDATE_ZOOM, (zoom) => {
       this.cameras.main.zoomTo(zoom, 1000);
-      this.background.destroy();
-      this.background = this.add.tileSprite(x0, y0, config.width / zoom, config.height / zoom, 'background');
-      this.background.setDepth(-1000);
     });
   }
 
