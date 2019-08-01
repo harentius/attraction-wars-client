@@ -9,6 +9,7 @@ module.exports = {
   globals: {
     ASSET_VERSION: true,
     DEBUG: true,
+    SERVER_URL: true,
   },
   extends: [
       'airbnb-base',

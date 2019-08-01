@@ -1,8 +1,7 @@
 import Phaser from 'phaser';
 
 export default {
-  // TODO
-  serverUrl: 'http://localhost:4000',
+  serverUrl: SERVER_URL,
   type: Phaser.AUTO,
   width: window.innerWidth,
   height: window.innerHeight,

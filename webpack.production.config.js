@@ -20,6 +20,7 @@ module.exports = {
     new webpack.DefinePlugin({
       CANVAS_RENDERER: JSON.stringify(true),
       WEBGL_RENDERER: JSON.stringify(true),
+      SERVER_URL: JSON.stringify(process.env.SERVER_URL),
     }),
   ],
   module: {
