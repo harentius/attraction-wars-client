@@ -1,37 +1,28 @@
 const path = require('path');
 const webpack = require('webpack');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-
-const definePlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
-});
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  devtool: 'source-map',
   entry: {
     app: [path.resolve(__dirname, 'src/app.js')],
   },
   output: {
     pathinfo: true,
-    path: path.resolve(__dirname, 'public/dist'),
-    publicPath: './public/dist/',
-    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+    filename: 'js/[name].[contenthash].js',
   },
-  watch: true,
   plugins: [
-    definePlugin,
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
+      __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
       CANVAS_RENDERER: JSON.stringify(true),
       WEBGL_RENDERER: JSON.stringify(true),
       SERVER_URL: JSON.stringify(process.env.SERVER_URL),
     }),
-    new BrowserSyncPlugin({
-      host: process.env.IP || 'localhost',
-      port: process.env.PORT || 3000,
-      server: {
-        baseDir: ['./public/', './public/build'],
-      },
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
     }),
   ],
   module: {
@@ -62,6 +53,17 @@ module.exports = {
           },
           {
             loader: 'sass-loader',
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[hash].[ext]',
+            },
           },
         ],
       },

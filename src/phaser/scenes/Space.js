@@ -22,14 +22,14 @@ class Space extends Phaser.Scene {
     const zone = this.add.zone(config.width / 2, config.height / 2, config.width, config.height);
     Phaser.Display.Align.In.Center(text, zone);
 
-    this.load.image('background', 'assets/images/space.png');
+    this.load.image('background', require('../../../resources/images/space.png'));
 
     for (let i = 0; i < 10; i++) {
-      this.load.image(`planet-${i}`, `assets/images/planets/${i}.png`);
+      this.load.image(`planet-${i}`, require(`../../../resources/images/planets/${i}.png`));
     }
 
     for (let i = 0; i < 10; i++) {
-      this.load.image(`asteroid-${i}`, `assets/images/asteroids/${i}.png`);
+      this.load.image(`asteroid-${i}`, require(`../../../resources/images/asteroids/${i}.png`));
     }
 
     text.destroy();
