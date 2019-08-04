@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 const serverUrl = SERVER_URL || 'http://localhost:4000';
 
 export default {
-  serverUrl: SERVER_URL,
+  serverUrl,
   type: Phaser.AUTO,
   width: window.innerWidth,
   height: window.innerHeight,
