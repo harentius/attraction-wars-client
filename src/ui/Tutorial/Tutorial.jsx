@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Widget from '../Widget/Widget.jsx';
-import Page1 from './Page/Page1.jsx';
-import Page2 from './Page/Page2.jsx';
-import Page3 from './Page/Page3.jsx';
+import Page1 from './Page/Page1/Page1.jsx';
+import Page2 from './Page/Page2/Page2.jsx';
+import Page3 from './Page/Page3/Page3.jsx';
 import './Tutorial.scss';
 
 const pages = [Page1, Page2, Page3];
