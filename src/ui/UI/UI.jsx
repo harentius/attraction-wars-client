@@ -25,6 +25,7 @@ class UI extends React.Component {
     this.props.storage.on(Storage.DISCONNECT, () => {
       this.setState({
         isLogged: false,
+        isTutorial: false,
       });
     });
     this.onLoginFormSubmit = this.onLoginFormSubmit.bind(this);
