@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../Widget/Widget.scss';
 import './LoginForm.scss';
 import Widget from '../Widget/Widget.jsx';
 
@@ -38,24 +37,16 @@ class LoginForm extends React.Component {
       <div className="form-wrapper">
         <Widget className="login-widget" title="Attraction Wars">
           <form onSubmit={this.handleSubmit} className="login-form">
-            <label>
+            <label className="name-wrapper">
               <input
                 type="text"
                 value={this.state.name}
                 onChange={this.onChangeName}
-                className={`login-form-input ${this.state.name ? 'valid' : ''}`}
+                className={`name-input ${this.state.name ? 'valid' : ''}`}
                 maxLength="18"
+                spellCheck="false"
               />
-              <div className="login-form-label">Name</div>
-            </label>
-
-            <label className="confirm-label">
-              <input
-                type="checkbox"
-                checked={this.state.showTutorial}
-                onChange={this.onChangeShowTutorial}
-              />
-              <div className="login-form-label">Show Tutorial</div>
+              <div className="name-label">Name</div>
             </label>
 
             <button
@@ -65,6 +56,16 @@ class LoginForm extends React.Component {
             >
               Start
             </button>
+
+            <label className="confirm-wrapper">
+              <input
+                type="checkbox"
+                className="confirm-checkbox"
+                checked={this.state.showTutorial}
+                onChange={this.onChangeShowTutorial}
+              />
+              <div className="confirm-label">Show Tutorial</div>
+            </label>
           </form>
         </Widget>
       </div>

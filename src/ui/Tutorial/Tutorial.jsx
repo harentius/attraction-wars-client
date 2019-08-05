@@ -4,7 +4,7 @@ import Widget from '../Widget/Widget.jsx';
 import Page1 from './Page/1.jsx';
 import './Tutorial.scss';
 
-const pages = [Page1];
+const pages = [Page1, Page1, Page1];
 
 class Tutorial extends React.Component {
   constructor(props) {
@@ -23,20 +23,38 @@ class Tutorial extends React.Component {
   render() {
     const Page = pages[this.state.page - 1];
 
-    return <div className="tutorial">
-      <Widget title="Game Tutorial">
-        <Page />
-        { this.state.page > 1 &&
-          <button onClick={() => this.updatePage(-1)}>Previous</button>
-        }
+    return (
+      <div className="tutorial">
+        <Widget title="Game Tutorial" className="tutorial-widget">
+          <Page />
 
-        <button onClick={this.props.onStartGame}>Start Game</button>
+          <div className="tutorial-footer">
+            <div className="page-indicators">
+              {pages.length > 1 && pages.map((page, index) => (
+                <span
+                  key={index}
+                  className={`page-indicator ${index === this.state.page - 1 ? 'page-indicator-active' : ''}`}
+                />
+              ))}
+            </div>
 
-        { this.state.page < pages.length &&
-          <button onClick={() => this.updatePage(1)}>Next</button>
-        }
-      </Widget>
-    </div>;
+            <div className="buttons">
+              { this.state.page > 1 &&
+                <button className="button button-prev" onClick={() => this.updatePage(-1)}>Previous</button>
+              }
+
+              <button className="button-submit" onClick={this.props.onStartGame}>
+                Start Game
+              </button>
+
+              { this.state.page < pages.length &&
+                <button className="button button-next" onClick={() => this.updatePage(1)}>Next</button>
+              }
+            </div>
+          </div>
+        </Widget>
+      </div>
+    );
   }
 }
 

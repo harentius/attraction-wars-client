@@ -1,5 +1,8 @@
 @import "../style/colors";
 @import "../style/mixins/widgetFrame";
+@import "../style/buttons";
+@import "../style/checkbox";
+@import "../Widget/Widget";
 
 $login-form-transition: all 0.3s;
 
@@ -11,7 +14,7 @@ $login-form-transition: all 0.3s;
   background: $color-page-background;
 }
 
-.login-widget {
+.login-widget.widget {
   margin: 50px auto 0;
   width: 90%;
   max-width: 500px;
@@ -22,7 +25,7 @@ $login-form-transition: all 0.3s;
   justify-content: center;
 
   .widget-title {
-    font-size: 26px;
+    font-size: 30px;
     margin-bottom: 50px;
   }
 
@@ -31,10 +34,15 @@ $login-form-transition: all 0.3s;
   }
 }
 
-.login-form-label {
-  display: block;
+.name-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name-label {
   text-align: center;
-  font-family: Orbitron, sans-serif;
+  font-family: Chakra Petch, sans-serif;
   text-transform: uppercase;
   color: $color-widget-text;
   cursor: text;
@@ -45,7 +53,7 @@ $login-form-transition: all 0.3s;
   letter-spacing: 3px;
 }
 
-.login-form-input {
+.name-input {
   background-color: transparent;
   padding: 5px 20px;
   width: 200px;
@@ -53,7 +61,7 @@ $login-form-transition: all 0.3s;
   outline: 0;
   border-bottom: 1px solid $color-widget-border;
   font-size: 28px;
-  font-family: Sarpanch, sans-serif;
+  font-family: Chakra Petch, sans-serif;
   color: $color-widget-text;
   text-align: center;
   transition: $login-form-transition;
@@ -64,43 +72,31 @@ $login-form-transition: all 0.3s;
     width: 260px;
   }
 
-  &:focus + .login-form-label,
-  &.valid + .login-form-label {
+  &:focus + .name-label,
+  &.valid + .name-label {
     color: $color-widget-text-secondary;
     font-size: 12px;
     transform: translateY(-64px);
   }
 }
 
-.login-form-button {
-  margin-top: 40px;
-  padding: 20px 40px;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  box-sizing: border-box;
-  background: $color-widget-bg-dark;
-  width: 300px;
-  font-size: 20px;
-  line-height: 20px;
-  font-family: Orbitron, sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  font-weight: bold;
-  color: $color-widget-text;
+.confirm-wrapper {
   cursor: pointer;
-  transition: $login-form-transition;
-  position: relative;
+  display: flex;
+  margin-top: 20px;
+}
 
-  &:before {
-    @include widgetFrame(10px, 5px, (top, left));
-  }
+.confirm-checkbox {
+  @extend %checkbox;
+}
 
-  &:after {
-    @include widgetFrame(10px, 5px, (bottom, right));
-  }
+.confirm-label {
+  display: inline;
+  font-family: Chakra Petch, sans-serif;
+}
 
-  &:hover {
-    background: $color-widget-bg;
-  }
+.login-form-button {
+  @extend %button-primary;
+  margin-top: 40px;
+  width: 300px;
 }
