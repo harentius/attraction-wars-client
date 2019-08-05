@@ -1,0 +1,53 @@
+@import "colors";
+@import "mixins/widgetFrame";
+
+%button {
+  padding: 20px 40px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 20px;
+  line-height: 20px;
+  font-family: Chakra Petch, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  background: $color-button-bg;
+  color: $color-widget-text;
+
+  &:before {
+    @include widgetFrame(10px, 5px, (top, left));
+  }
+
+  &:after {
+    @include widgetFrame(10px, 5px, (bottom, right));
+  }
+
+  &:hover {
+    background: $color-button-bg-hover;
+  }
+
+  &:disabled {
+    background: desaturate($color-widget-bg, 75%);
+    cursor: not-allowed;
+  }
+}
+
+%button-primary {
+  @extend %button;
+  background: $color-widget-bg-dark;
+  color: $color-widget-text;
+
+  &:hover {
+    background: $color-widget-bg;
+  }
+
+  &:disabled {
+    background: desaturate($color-widget-bg, 80%);
+    cursor: not-allowed;
+  }
+}

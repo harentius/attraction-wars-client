@@ -1,0 +1,58 @@
+@import "colors";
+
+%checkbox {
+  $color-border: $color-widget-border;
+  $color-checked-bg: $color-widget-bg;
+
+  position: absolute;
+  opacity: 0;
+
+  & + div {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  & + div:before {
+    content: '';
+    box-sizing: border-box;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 18px;
+    height: 18px;
+    transition: all 0.2s ease;
+  }
+
+  &:checked + div:before {
+    background: $color-checked-bg;
+    border: none;
+  }
+
+  &:not(:checked) + div:before {
+    background: transparent;
+    border: solid 1px $color-border;
+  }
+
+  & + div:after {
+    content: " ";
+    background-image: url('../../../resources/icons/check-mark.svg');
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    transition: all 0.2s ease;
+  }
+
+  &:checked + div:after {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  &:not(:checked) + div:after {
+    transform: scale(0);
+    opacity: 0;
+  }
+}

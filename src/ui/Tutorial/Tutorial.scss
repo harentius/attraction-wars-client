@@ -1,4 +1,5 @@
 @import "../style/colors";
+@import "../style/buttons";
 
 .tutorial {
   height: 100%;
@@ -6,4 +7,69 @@
   align-items: center;
   justify-content: center;
   background: $color-page-background;
+}
+
+.tutorial-widget {
+  padding: 20px 30px;
+  width: 90%;
+  height: 90%;
+  max-width: 900px;
+  max-height: 550px;
+
+  .widget-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .tutorial-footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .button {
+    @extend %button;
+    padding: 15px;
+    font-size: 15px;
+    width: 150px;
+    position: absolute;
+  }
+
+  .button-submit {
+    @extend %button-primary;
+    padding: 15px;
+    width: 210px;
+  }
+
+  .button-prev {
+    left: 0;
+  }
+
+  .button-next {
+    right: 0;
+  }
+
+  .page-indicators {
+    text-align: center;
+  }
+
+  .page-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: $color-widget-bg;
+    margin: 20px;
+    border-radius: 50%;
+  }
+
+  .page-indicator-active {
+    background: $color-widget-border;
+  }
 }
