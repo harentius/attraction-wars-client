@@ -17,7 +17,7 @@ const Page3 = () => <div>
     <b>Gravity Assist</b> zones of other player he receives extra bonuses.
   </p>
 
-  <p>In <b>Gravity Assist</b> zone user can obtain extra speed</p>
+  <p>In <b>Gravity Assist</b> zone user obtains extra speed</p>
   <img src={gravityAssist} />
 </div>;
 
