@@ -33,12 +33,13 @@ class UI extends React.Component {
   }
 
   onLoginFormSubmit({ name, showTutorial }) {
-    this.setState({ name });
-
     if (showTutorial) {
-      this.setState({ isTutorial: showTutorial });
+      this.setState({
+        name,
+        isTutorial: showTutorial,
+      });
     } else {
-      this.startGame();
+      this.setState({ name }, () => this.startGame());
     }
   }
 
