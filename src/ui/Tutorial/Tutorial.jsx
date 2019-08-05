@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Widget from '../Widget/Widget.jsx';
-import Page1 from './Page/1.jsx';
+import Page1 from './Page/Page1.jsx';
+import Page2 from './Page/Page2.jsx';
+import Page3 from './Page/Page3.jsx';
 import './Tutorial.scss';
 
-const pages = [Page1, Page1, Page1];
+const pages = [Page1, Page2, Page3];
 
 class Tutorial extends React.Component {
   constructor(props) {
@@ -18,6 +20,10 @@ class Tutorial extends React.Component {
     this.setState((state) => (
       { page: state.page + number }
     ));
+  }
+
+  setPage(page) {
+    this.setState({ page });
   }
 
   render() {
@@ -34,6 +40,7 @@ class Tutorial extends React.Component {
                 <span
                   key={index}
                   className={`page-indicator ${index === this.state.page - 1 ? 'page-indicator-active' : ''}`}
+                  onClick={() => this.setPage(index + 1)}
                 />
               ))}
             </div>

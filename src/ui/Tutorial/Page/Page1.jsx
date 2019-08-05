@@ -1,7 +1,8 @@
 import React from 'react';
+import Title from '../Title.jsx';
 
 const Page1 = () => <div>
-  Page 1
+  <Title>Controls</Title>
 </div>;
 
 export default Page1;
