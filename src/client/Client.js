@@ -12,7 +12,8 @@ class Client {
   connect() {
     this.socket = io.connect(config.serverUrl);
     this.socket.on('worldData', (data) => {
-      this.storage.updateWorldData(data);
+      const decodedString = String.fromCharCode.apply(null, new Uint8Array(data));
+      this.storage.updateWorldData(JSON.parse(decodedString));
     });
 
     this.socket.on('playerData', (data) => {
