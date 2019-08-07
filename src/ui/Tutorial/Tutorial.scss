@@ -13,8 +13,12 @@
   padding: 20px 30px;
   width: 90%;
   height: 90%;
-  max-width: 900px;
-  max-height: 550px;
+  max-width: 800px;
+  max-height: 530px;
+
+  .widget-title {
+    font-size: 26px;
+  }
 
   .widget-content {
     display: flex;

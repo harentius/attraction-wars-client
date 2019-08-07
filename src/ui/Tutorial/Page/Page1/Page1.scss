@@ -1,7 +1,30 @@
+.keys-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  margin-top: 55px;
+}
+
+.key-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.key-img {
+  opacity: 0.8;
+}
+
 .arrow-keys-img {
   width: 200px;
 }
 
 .space-key-img {
-  width: 350px;
+  width: 300px;
+}
+
+.movement-label {
+  font-family: Chakra Petch, sans-serif;
+  font-size: 22px;
+  margin-top: 20px;
 }
