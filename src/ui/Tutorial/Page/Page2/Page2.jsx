@@ -1,14 +1,16 @@
 import React from 'react';
-import Title from '../../Title.jsx';
+import Title from '../../Title/Title.jsx';
 import absorption from '../../../../../resources/ui/tutorial/absorption.gif';
 import './Page2.scss';
 
 const Page2 = () => <div>
   <Title>Game objects</Title>
 
-  <div>
+  <div className="page-content">
     <img src={absorption} className="absorption-img"/>
-    <span>Avoid bigger objects, absorb smaller to increase mass and score</span>
+    <span className="absorption-label">
+      Avoid bigger objects, absorb smaller ones to increase mass and score.
+    </span>
   </div>
 </div>;
 
