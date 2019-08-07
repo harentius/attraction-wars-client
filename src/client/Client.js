@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import parser from 'socket.io-msgpack-parser';
 import config from '../config';
 import Game from '../phaser/Game';
 
@@ -10,10 +11,9 @@ class Client {
   }
 
   connect() {
-    this.socket = io.connect(config.serverUrl);
+    this.socket = io(config.serverUrl, { parser });
     this.socket.on('worldData', (data) => {
-      const decodedString = String.fromCharCode.apply(null, new Uint8Array(data));
-      this.storage.updateWorldData(JSON.parse(decodedString));
+      this.storage.updateWorldData(data);
     });
 
     this.socket.on('playerData', (data) => {
