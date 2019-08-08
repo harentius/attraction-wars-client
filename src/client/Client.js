@@ -22,6 +22,10 @@ class Client {
       this.game = new Game(this.storage, this);
     });
 
+    this.socket.on('asteroidData', (data) => {
+      this.storage.updateAsteroidData(data);
+    });
+
     this.socket.on('disconnect', () => {
       this.disconnect();
     });

@@ -39,34 +39,43 @@ class Storage {
     delete this._events[Storage.UPDATE_SCORE];
   }
 
+  updateAsteroidData(asteroidData) {
+    Object.assign(this.worldData.asteroidsData[asteroidData.id], asteroidData);
+  }
+
   updateWorldData(worldData) {
-    const isCreated = Object.keys(this.worldData.playersData).length === 0
+    const isCreated = this.worldData.playersData
+      && Object.keys(this.worldData.playersData).length === 0
       && Object.keys(worldData).length !== 0
     ;
-    // Can be moved to some kind of init event and send only once
-    this.worldData.worldBounds = worldData.worldBounds;
-    this.worldData.relativeZonesSizes = worldData.relativeZonesSizes;
-    this.worldData.asteroidAttractionRadiusMultiplier
-      = worldData.asteroidAttractionRadiusMultiplier
-    ;
 
-    // Players Data sync
-    for (const key of Object.keys(worldData.playersData)) {
-      if (this.worldData.playersData[key]) {
-        Object.assign(this.worldData.playersData[key], worldData.playersData[key]);
-      } else {
-        this.worldData.playersData[key] = worldData.playersData[key];
-      }
+    if (worldData.worldBounds) {
+      this.worldData.worldBounds = worldData.worldBounds;
+      this.worldData.relativeZonesSizes = worldData.relativeZonesSizes;
+      this.worldData.asteroidAttractionRadiusMultiplier
+        = worldData.asteroidAttractionRadiusMultiplier
+      ;
     }
 
-    for (const key of Object.keys(this.worldData.playersData)) {
-      if (!worldData.playersData[key]) {
-        delete this.worldData.playersData[key];
+    // Players Data sync
+    if (worldData.playersData) {
+      for (const key of Object.keys(worldData.playersData)) {
+        if (this.worldData.playersData[key]) {
+          Object.assign(this.worldData.playersData[key], worldData.playersData[key]);
+        } else {
+          this.worldData.playersData[key] = worldData.playersData[key];
+        }
+      }
+
+      for (const key of Object.keys(this.worldData.playersData)) {
+        if (!worldData.playersData[key]) {
+          delete this.worldData.playersData[key];
+        }
       }
     }
 
     // Current player data sync
-    if (worldData.playersData[this._playerId]) {
+    if (worldData.playersData && worldData.playersData[this._playerId]) {
       const oldScore = Math.round(this.playerData.score);
       const newScore = Math.round(worldData.playersData[this._playerId].score);
 
@@ -89,27 +98,30 @@ class Storage {
       ) {
         this.setZoom(this.zoom + config.zoomChange);
       }
-    }
 
-    Object.assign(this.playerData, worldData.playersData[this._playerId]);
+      Object.assign(this.playerData, worldData.playersData[this._playerId]);
+    }
 
     // Asteroids Data sync
-    for (const key of Object.keys(worldData.asteroidsData)) {
-      if (this.worldData.asteroidsData[key]) {
-        Object.assign(this.worldData.asteroidsData[key], worldData.asteroidsData[key]);
-      } else {
-        this.worldData.asteroidsData[key] = worldData.asteroidsData[key];
+    if (worldData.asteroidsData) {
+      for (const key of Object.keys(worldData.asteroidsData)) {
+        if (this.worldData.asteroidsData[key]) {
+          Object.assign(this.worldData.asteroidsData[key], worldData.asteroidsData[key]);
+        } else {
+          this.worldData.asteroidsData[key] = worldData.asteroidsData[key];
+        }
       }
-    }
 
-    for (const key of Object.keys(this.worldData.asteroidsData)) {
-      if (!worldData.asteroidsData[key]) {
-        delete this.worldData.asteroidsData[key];
+      for (const key of Object.keys(this.worldData.asteroidsData)) {
+        if (!worldData.asteroidsData[key]) {
+          delete this.worldData.asteroidsData[key];
+        }
       }
     }
 
     // Server Statistics sync
-    if (JSON.stringify(this.worldData.serverStatistics)
+    if (worldData.serverStatistics
+      && JSON.stringify(this.worldData.serverStatistics)
       !== JSON.stringify(worldData.serverStatistics)
     ) {
       this.trigger(Storage.UPDATE_SERVER_STATISTICS, [worldData.serverStatistics]);
