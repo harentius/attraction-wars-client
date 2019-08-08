@@ -12,8 +12,13 @@ class Client {
 
   connect() {
     this.socket = io(config.serverUrl, { parser });
-    this.socket.on('worldData', (data) => {
-      this.storage.updateWorldData(data);
+
+    this.socket.on('fullWorldData', (data) => {
+      this.storage.updateWorldData(data, true);
+
+      this.socket.on('worldData', (data1) => {
+        this.storage.updateWorldData(data1);
+      });
     });
 
     this.socket.on('playerData', (data) => {

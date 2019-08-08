@@ -43,12 +43,7 @@ class Storage {
     Object.assign(this.worldData.asteroidsData[asteroidData.id], asteroidData);
   }
 
-  updateWorldData(worldData) {
-    const isCreated = this.worldData.playersData
-      && Object.keys(this.worldData.playersData).length === 0
-      && Object.keys(worldData).length !== 0
-    ;
-
+  updateWorldData(worldData, isCreating = false) {
     if (worldData.worldBounds) {
       this.worldData.worldBounds = worldData.worldBounds;
       this.worldData.relativeZonesSizes = worldData.relativeZonesSizes;
@@ -60,6 +55,9 @@ class Storage {
     // Players Data sync
     if (worldData.playersData) {
       for (const key of Object.keys(worldData.playersData)) {
+        // eslint-disable-next-line
+        worldData.playersData[key].id = key;
+
         if (this.worldData.playersData[key]) {
           Object.assign(this.worldData.playersData[key], worldData.playersData[key]);
         } else {
@@ -105,6 +103,9 @@ class Storage {
     // Asteroids Data sync
     if (worldData.asteroidsData) {
       for (const key of Object.keys(worldData.asteroidsData)) {
+        // eslint-disable-next-line
+        worldData.asteroidsData[key].id = key;
+
         if (this.worldData.asteroidsData[key]) {
           Object.assign(this.worldData.asteroidsData[key], worldData.asteroidsData[key]);
         } else {
@@ -128,7 +129,7 @@ class Storage {
       this.worldData.serverStatistics = worldData.serverStatistics;
     }
 
-    if (isCreated) {
+    if (isCreating) {
       this.trigger(Storage.WORLD_DATA_CREATED);
     }
 
