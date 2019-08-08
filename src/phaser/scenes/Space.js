@@ -29,7 +29,7 @@ class Space extends Phaser.Scene {
       this.load.image(`planet-${i}`, require(`../../../resources/phaser/images/planets/${i}.png`));
     }
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
       this.load.image(`asteroid-${i}`, require(`../../../resources/phaser/images/asteroids/${i}.png`));
     }
   }
