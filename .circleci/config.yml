@@ -35,7 +35,7 @@ jobs:
             command: docker build -t $IMAGE_NAME:latest .
       filters:
         branches:
-          only: master
+          only: develop
       requires:
         - lint
 
@@ -55,4 +55,4 @@ jobs:
         - build-image
       filters:
         branches:
-          only: master
+          only: develop
