@@ -36,7 +36,7 @@ jobs:
             docker push "$IMAGE_NAME":latest
     filters:
       branches:
-        only: develop
+        only: master
     requires:
       - lint
 
