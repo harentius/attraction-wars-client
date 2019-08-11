@@ -56,3 +56,11 @@ jobs:
     filters:
       branches:
         only: develop
+
+workflows:
+  version: 2
+  lint_and_publish:
+    jobs:
+      - build
+      - build-image
+      - publish
