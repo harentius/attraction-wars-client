@@ -5,6 +5,5 @@
 /.eslintrc.js
 /.gitignore
 /Dockerfile
-/LICENSE.md
 /README.md
 /webpack.development.config.js
