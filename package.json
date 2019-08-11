@@ -1,12 +1,13 @@
 {
   "name": "attraction-wars-client",
   "version": "0.0.1",
-  "description": "",
+  "description": "Attraction Wars Game Client",
+  "repository": "git@github.com:harentius/attraction-wars-client.git",
   "author": "",
   "main": "index.js",
   "scripts": {
     "dev": "webpack --config webpack.development.config.js",
-    "prod": "webpack --config webpack.production.config.js",
+    "build": "webpack --config webpack.production.config.js",
     "lint": "eslint ./src/**/**.js"
   },
   "license": "MIT",
@@ -49,7 +50,7 @@
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.4.1",
     "webfontloader": "^1.6.28",
-    "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5"
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6"
   }
 }
