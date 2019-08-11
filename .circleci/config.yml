@@ -1,4 +1,8 @@
 version: 2
+  executors:
+    docker-publisher:
+      docker:
+        - image: circleci/buildpack-deps:stretch
 jobs:
   build:
     working_directory: ~/attraction-wars-server
@@ -23,8 +27,7 @@ jobs:
           command: npm run lint
 
   build-image:
-    docker:
-      - image: circleci/buildpack-deps:stretch
+    executor: docker-publisher
     steps:
       - checkout
       - setup_remote_docker
@@ -38,8 +41,7 @@ jobs:
       - lint
 
   publish:
-    docker:
-      - image: circleci/buildpack-deps:stretch
+    executor: docker-publisher
     steps:
       - setup_remote_docker
       - run:
@@ -47,16 +49,22 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push "$IMAGE_NAME":latest
-    requires:
-      - build-image
-    filters:
-      branches:
-        only: develop
 
 workflows:
   version: 2
   lint_and_publish:
     jobs:
       - build
-      - build-image
-      - publish
+      - build-image:
+        requires:
+          - build
+        filters:
+          branches:
+            only: develop
+
+      - publish:
+          requires:
+            - build-image
+          filters:
+            branches:
+              only: develop
