@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  lint:
     working_directory: ~/attraction-wars-server
     docker:
       - image: circleci/node:10.0.0
@@ -40,10 +40,9 @@ jobs:
     requires:
       - lint
 
-
 workflows:
   version: 2
   lint_and_publish:
     jobs:
-      - build
+      - lint
       - build-and-publish-image
