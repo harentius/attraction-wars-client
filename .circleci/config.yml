@@ -1,8 +1,8 @@
 version: 2
-  executors:
-    docker-publisher:
-      docker:
-        - image: circleci/buildpack-deps:stretch
+executors:
+  docker-publisher:
+    docker:
+      - image: circleci/buildpack-deps:stretch
 jobs:
   build:
     working_directory: ~/attraction-wars-server
