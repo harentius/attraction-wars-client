@@ -22,37 +22,27 @@ jobs:
           name: lint
           command: npm run lint
 
-    build-image:
-      environment:
-        IMAGE_NAME: "$IMAGE_NAME"
-      docker:
-        - image: circleci/buildpack-deps:stretch
-      steps:
-        - checkout
-        - setup_remote_docker
-        - run:
-            name: Build Docker image
-            command: docker build -t $IMAGE_NAME:latest .
-      filters:
-        branches:
-          only: master
-      requires:
-        - lint
+  build-and-publish-image:
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t "$IMAGE_NAME":latest .
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push "$IMAGE_NAME":latest
+    filters:
+      branches:
+        only: master
+    requires:
+      - lint
 
-    publish:
-      environment:
-        IMAGE_NAME: "$IMAGE_NAME"
-        docker:
-          - image: circleci/buildpack-deps:stretch
-        steps:
-          - setup_remote_docker
-          - run:
-              name: Publish Docker Image to Docker Hub
-              command: |
-                echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-                docker push $IMAGE_NAME:latest
-      requires:
-        - build-image
-      filters:
-        branches:
-          only: master
+workflows:
+  version: 2
+  lint_and_publish:
+    jobs:
+      - lint
+      - build-and-publish-image
