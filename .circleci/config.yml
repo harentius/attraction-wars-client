@@ -1,4 +1,10 @@
 version: 2
+executors:
+  docker-publisher:
+    environment:
+      IMAGE_NAME: jonathancardoso/building-on-ci
+    docker:
+      - image: circleci/buildpack-deps:stretch
 jobs:
   build:
     working_directory: ~/attraction-wars-server
@@ -23,8 +29,7 @@ jobs:
           command: npm run lint
 
   build-image:
-    docker:
-      - image: circleci/buildpack-deps:stretch
+    executor: docker-publisher
     steps:
       - checkout
       - setup_remote_docker
@@ -38,8 +43,7 @@ jobs:
       - lint
 
   publish:
-    docker:
-      - image: circleci/buildpack-deps:stretch
+    executor: docker-publisher
     steps:
       - setup_remote_docker
       - run:
