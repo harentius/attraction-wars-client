@@ -22,7 +22,7 @@ module.exports = {
       SERVER_URL: JSON.stringify(process.env.SERVER_URL),
     }),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './src/templates/index.html',
     }),
   ],
   module: {
