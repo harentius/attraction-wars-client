@@ -3,13 +3,13 @@ import BootScene from './scenes/Boot';
 import SpaceScene from './scenes/Space';
 import config from '../config';
 
-const gameConfig = Object.assign(config, {
-  scene: [BootScene, SpaceScene],
-});
-
 class Game extends Phaser.Game {
   constructor(storage, client) {
-    super(gameConfig);
+    super(Object.assign(config, {
+      // TODO: tmp solution
+      type: JSON.parse(window.localStorage.getItem('useWebGLRenderer')) ? Phaser.WEBGL : Phaser.CANVAS,
+      scene: [BootScene, SpaceScene],
+    }));
     this.storage = storage;
     this.client = client;
   }

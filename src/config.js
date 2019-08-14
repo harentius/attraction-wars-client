@@ -1,10 +1,7 @@
-import Phaser from 'phaser';
-
 const serverUrl = SERVER_URL || 'http://localhost:4000';
 
 export default {
   serverUrl,
-  type: Phaser.AUTO,
   width: window.innerWidth,
   height: window.innerHeight,
   localStorageName: 'attraction-wars',
