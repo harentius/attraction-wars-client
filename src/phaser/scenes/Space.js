@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import config from '../../config';
-import Player from '../player/Player';
+import Planet from '../planet/Planet';
 import KeysPressState from '../../client/KeysPressState';
 import Asteroid from '../asteroid/Asteroid';
 import Storage from '../../Storage';
@@ -36,7 +36,7 @@ class Space extends Phaser.Scene {
 
   create() {
     const storage = this._getStorage();
-    this.player = new Player(this, storage.worldData.relativeZonesSizes, true);
+    this.player = new Planet(this, storage.worldData.relativeZonesSizes, true);
 
     const x0 = storage.playerData.x;
     const y0 = storage.playerData.y;
@@ -170,7 +170,7 @@ class Space extends Phaser.Scene {
   }
 
   _createAndSpawnPlayer(playerData) {
-    const player = new Player(this, this._getStorage().worldData.relativeZonesSizes);
+    const player = new Planet(this, this._getStorage().worldData.relativeZonesSizes);
     this.otherPlayers.set(playerData.id, player);
     player.spawn(playerData);
 

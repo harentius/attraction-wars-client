@@ -72,7 +72,7 @@ class Storage {
       }
     }
 
-    // Current player data sync
+    // Current planet data sync
     if (worldData.playersData && worldData.playersData[this._playerId]) {
       const oldScore = Math.round(this.playerData.score);
       const newScore = Math.round(worldData.playersData[this._playerId].score);

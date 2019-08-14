@@ -12,7 +12,7 @@ const SCORE_TEXT_SIZE = 30;
 const SCORE_TEXT_COLOR = '#92ff5b';
 const SCORE_TEXT_SHADOW_COLOR = '#f6ff00';
 
-class Player {
+class Planet {
   constructor(scene, relativeZonesSizes, showScores = false) {
     this.scene = scene;
     this.relativeZonesSizes = relativeZonesSizes;
@@ -128,4 +128,4 @@ class Player {
   }
 }
 
-export default Player;
+export default Planet;
