@@ -1,0 +1,84 @@
+@import './items';
+
+.PlanetsOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  background: url('../../../../resources/phaser/images/space.png');
+}
+
+@function deepGet($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+@mixin circle($r) {
+  width: $r * 2;
+  height: $r * 2;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+}
+
+@each $index, $props in $planets {
+  $size: deepGet($props, 'size');
+  $url: deepGet($props, 'url');
+  $orbitRadius: deepGet($props, 'orbitRadius');
+  $orbitSkew: deepGet($props, 'orbitSkew');
+  $shadowColor: deepGet($props, 'shadowColor');
+  $animationDuration: deepGet($props, 'animationDuration');
+  $animationDelay: deepGet($props, 'animationDelay');
+  $halfSize: $size / 2;
+  $halfOrbitR: $orbitRadius / 2;
+
+  @keyframes orbitMove#{$index} {
+    from {
+      transform: rotateZ(0) translateX($halfOrbitR) rotateZ(0) rotateX(-$orbitSkew);
+    }
+    to {
+      transform: rotateZ(360deg) translateX($halfOrbitR) rotateZ(-360deg) rotateX(-$orbitSkew);
+    }
+  }
+
+  .planet#{$index} {
+    @include circle($halfSize);
+    background-size: contain;
+    background-image: url($url);
+    animation: orbitMove#{$index} $animationDuration linear infinite;
+    animation-delay: $animationDelay;
+    border-radius: 50%;
+    box-shadow: 0 0 100px 0 $shadowColor;
+  }
+
+  .planet#{$index}-ellipse {
+    @include circle($halfOrbitR);
+    transform-style: preserve-3d;
+    transform: rotateX($orbitSkew);
+  }
+}
+
+@each $index, $props in $asteroids {
+  $size: deepGet($props, 'size');
+  $url: deepGet($props, 'url');
+  $top: deepGet($props, 'top');
+  $left: deepGet($props, 'left');
+
+  .asteroid#{$index} {
+    background-size: contain;
+    background-image: url($url);
+    width: $size;
+    height: $size;
+    position: absolute;
+    top: $top;
+    left: $left;
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './LoginForm.scss';
 import Widget from '../Widget/Widget.jsx';
+import PlanetsOverlay from './PlanetsOverlay/PlanetsOverlay.jsx';
 
 const getBoolValFromStorage = (key, defaultValue = true) => (
   window.localStorage.getItem(key)
@@ -46,6 +47,8 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div className="form-wrapper">
+        <PlanetsOverlay />
+        <div className="widget-bg" />
         <Widget className="login-widget" title="Attraction Wars">
           <form onSubmit={this.handleSubmit} className="login-form">
             <label className="name-wrapper">
