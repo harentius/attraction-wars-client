@@ -8,7 +8,7 @@
 $planets: (
   1: (
     size: 150px,
-    url: '../../../../resources/phaser/images/planets/2.png',
+    url: '../../../../resources/ui/login/planets/2.png',
     orbitRadius: 90vw,
     orbitSkew: 60deg,
     shadowColor: rgba(255, 82, 60, 0.23),
@@ -17,7 +17,7 @@ $planets: (
   ),
   2: (
     size: 120px,
-    url: '../../../../resources/phaser/images/planets/5.png',
+    url: '../../../../resources/ui/login/planets/5.png',
     orbitRadius: 60vw,
     orbitSkew: 50deg,
     shadowColor: rgba(64, 255, 136, 0.23),
@@ -26,7 +26,7 @@ $planets: (
   ),
   3: (
     size: 90px,
-    url: '../../../../resources/phaser/images/planets/8.png',
+    url: '../../../../resources/ui/login/planets/8.png',
     orbitRadius: 70vw,
     orbitSkew: 55deg,
     shadowColor: rgba(242, 102, 255, 0.23),
@@ -38,43 +38,43 @@ $planets: (
 $asteroids: (
   1: (
     size: #{randomInt(50, 80)}px,
-    url: '../../../../resources/phaser/images/asteroids/1.png',
+    url: '../../../../resources/ui/login/asteroids/1.png',
     top: 18vh,
     left: 5vw,
   ),
   2: (
     size: #{randomInt(50, 80)}px,
-    url: '../../../../resources/phaser/images/asteroids/3.png',
+    url: '../../../../resources/ui/login/asteroids/3.png',
     top: 3vh,
     left: 30vw,
   ),
   3: (
     size: #{randomInt(50, 80)}px,
-    url: '../../../../resources/phaser/images/asteroids/7.png',
+    url: '../../../../resources/ui/login/asteroids/7.png',
     top: 10vh,
     left: 80vw,
   ),
   4: (
     size: #{randomInt(50, 80)}px,
-    url: '../../../../resources/phaser/images/asteroids/9.png',
+    url: '../../../../resources/ui/login/asteroids/9.png',
     top: 70vh,
     left: 17vw,
   ),
   5: (
     size: #{randomInt(50, 80)}px,
-    url: '../../../../resources/phaser/images/asteroids/11.png',
+    url: '../../../../resources/ui/login/asteroids/11.png',
     top: 70vh,
     left: 90vw,
   ),
   6: (
     size: #{randomInt(50, 80)}px,
-    url: '../../../../resources/phaser/images/asteroids/14.png',
+    url: '../../../../resources/ui/login/asteroids/14.png',
     top: 90vh,
     left: 65vw,
   ),
   7: (
     size: #{randomInt(50, 80)}px,
-    url: '../../../../resources/phaser/images/asteroids/18.png',
+    url: '../../../../resources/ui/login/asteroids/18.png',
     top: 24vh,
     left: 54vw,
   ),
