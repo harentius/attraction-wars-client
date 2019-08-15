@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source_dir=$1
+target_file=$2
+
+if [ -z "$source_dir" ]; then
+    echo "Error: Missing source dir"
+    exit 1
+fi
+
+if [ -z "$target_file" ]; then
+    echo "Error: Missing target file"
+    exit 1
+fi
+
+cd "$source_dir"
+convert * -gravity center -background none +append "$target_file"
