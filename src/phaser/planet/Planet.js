@@ -1,5 +1,5 @@
 import Storage from '../../Storage';
-import { random } from '../../utils';
+import showScoreAcquiration from './showScoreAcquiration';
 
 const ZONE_LINE_WIDTH = 2;
 const ZONE_LINE_COLOR = 0x634269;
@@ -8,9 +8,8 @@ const PLAYERS_NAME_COLOR = '#000';
 const PLAYERS_NAME_SHADOW_COLOR = '#fff';
 
 const SCORE_MIN_VISIBLE_CHANGE = 2;
-const SCORE_TEXT_SIZE = 30;
-const SCORE_TEXT_COLOR = '#92ff5b';
-const SCORE_TEXT_SHADOW_COLOR = '#f6ff00';
+
+const MIN_DR_TO_ANIMATE = 0.5;
 
 class Planet {
   constructor(scene, relativeZonesSizes, showScores = false) {
@@ -22,11 +21,25 @@ class Planet {
     this.zonesGraphics = [];
     this.playerData = null;
     this.playerNameText = null;
+    this.oldR = null;
   }
 
   spawn(playerData) {
     this.playerData = playerData;
     this.sprite = this.scene.add.sprite(playerData.x, playerData.y, `planet-${playerData.color}`);
+    this.oldR = playerData.r;
+    this.scene.anims.create({ key: 'planet', frames: [ { key: `planet-${playerData.color}`, frame: 0 } ] });
+    this.scene.anims.create({
+      key: 'planet-grow',
+      duration: 500,
+      frames: this.scene.anims.generateFrameNumbers(`planet-${playerData.color}`, {
+        start: 1,
+        end: 8,
+      }),
+      repeat: 2,
+    });
+
+    this.sprite.anims.play('planet', true);
 
     for (let i = 0; i < Object.keys(this.relativeZonesSizes).length; i++) {
       const graphics = this.scene.add.graphics();
@@ -48,7 +61,8 @@ class Planet {
         const scoreChange = score - oldScore;
 
         if (scoreChange >= SCORE_MIN_VISIBLE_CHANGE) {
-          this._showScoreAcquiration(scoreChange);
+          const scale = this._getStorage().getScale();
+          showScoreAcquiration(this.playerData, this.scene, scoreChange, scale);
         }
       });
     }
@@ -73,8 +87,16 @@ class Planet {
   redraw() {
     this.sprite.x = this.playerData.x;
     this.sprite.y = this.playerData.y;
+
     this.sprite.displayWidth = 2 * this.playerData.r;
     this.sprite.displayHeight = 2 * this.playerData.r;
+
+    if (this.playerData.r - this.oldR > MIN_DR_TO_ANIMATE) {
+      this._animateGrow();
+    }
+
+    this.oldR = this.playerData.r;
+
     this.clear();
     const scale = this._getStorage().getScale();
     this.playerNameText.x = this.playerData.x - this.playerNameText.displayWidth / 2;
@@ -93,38 +115,13 @@ class Planet {
     }
   }
 
-  _getStorage() {
-    return this.scene.sys.game.storage;
+  _animateGrow() {
+    this.sprite.anims.play('planet-grow');
+    this.sprite.anims.chain('planet');
   }
 
-  _showScoreAcquiration(score) {
-    const text = this.scene.add.text(
-      0,
-      SCORE_TEXT_SIZE / 2,
-      score,
-      { fontSize: SCORE_TEXT_SIZE, fill: SCORE_TEXT_COLOR, fontFamily: 'Verdana' },
-    );
-    text.setShadow(1, 1, SCORE_TEXT_SHADOW_COLOR, 5, false);
-
-    const scale = this._getStorage().getScale();
-    text.setScale(scale);
-
-    const xShift = random(-1.3, 1.3);
-    const yShift = random(1.4, 2.0);
-
-    this.scene.tweens.addCounter({
-      from: 1,
-      to: 0,
-      duration: 2000,
-      onUpdate: (tween) => {
-        text.setAlpha(tween.getValue());
-        text.x = this.playerData.x - xShift * this.playerData.r;
-        text.y = this.playerData.y - yShift * this.playerData.r;
-      },
-      onComplete: () => {
-        text.destroy();
-      },
-    });
+  _getStorage() {
+    return this.scene.sys.game.storage;
   }
 }
 

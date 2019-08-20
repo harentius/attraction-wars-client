@@ -29,7 +29,7 @@ class Space extends Phaser.Scene {
       this.load.spritesheet(
         `planet-${i}`,
         require(`../../../resources/phaser/images/planets/${i}.png`),
-        { frameWidth: 1070, frameHeight: 1070 },
+        { frameWidth: 1050, frameHeight: 1050 },
       );
     }
 

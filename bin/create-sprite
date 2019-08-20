@@ -14,4 +14,4 @@ if [ -z "$target_file" ]; then
 fi
 
 cd "$source_dir"
-convert * -gravity center -background none +append "$target_file"
+convert * -gravity center -background none -extent 1050x1050 +append "$target_file"
