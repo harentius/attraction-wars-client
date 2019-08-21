@@ -31,6 +31,10 @@ class Client {
       this.storage.updateAsteroidData(data);
     });
 
+    this.socket.on('serverStatisticsData', (data) => {
+      this.storage.updateServerStatisticsData(data);
+    });
+
     this.socket.on('disconnect', () => {
       this.disconnect();
     });

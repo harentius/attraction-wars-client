@@ -120,15 +120,6 @@ class Storage {
       }
     }
 
-    // Server Statistics sync
-    if (worldData.serverStatistics
-      && JSON.stringify(this.worldData.serverStatistics)
-      !== JSON.stringify(worldData.serverStatistics)
-    ) {
-      this.trigger(Storage.UPDATE_SERVER_STATISTICS, [worldData.serverStatistics]);
-      this.worldData.serverStatistics = worldData.serverStatistics;
-    }
-
     if (isCreating) {
       this.trigger(Storage.WORLD_DATA_CREATED);
     }
@@ -149,6 +140,16 @@ class Storage {
     }
 
     this._checkConnected();
+  }
+
+  updateServerStatisticsData(serverStatistics) {
+    if (serverStatistics
+      && JSON.stringify(this.worldData.serverStatistics)
+      !== JSON.stringify(serverStatistics)
+    ) {
+      this.trigger(Storage.UPDATE_SERVER_STATISTICS, [serverStatistics]);
+      this.worldData.serverStatistics = serverStatistics;
+    }
   }
 
   setZoom(zoom) {

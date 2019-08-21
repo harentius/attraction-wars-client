@@ -9,7 +9,6 @@ class ServerStatisticsWidget extends React.Component {
     super(props);
     this.state = {
       serverStatistics: {
-        loadPercent: 0,
         maxLoadPercent: 0,
         averageLoadPercent: 0,
         onlineCount: 0,
@@ -29,7 +28,6 @@ class ServerStatisticsWidget extends React.Component {
     return (
       <Widget className="server-statistics-widget" title="Server Statistics">
         <p>Online Players: { this.state.serverStatistics.onlineCount }</p>
-        <p>Server Load: { this.state.serverStatistics.loadPercent }%</p>
         <p>Server Average Load: { this.state.serverStatistics.averageLoadPercent }%</p>
         <p>Server Max Load: { this.state.serverStatistics.maxLoadPercent }%</p>
       </Widget>
