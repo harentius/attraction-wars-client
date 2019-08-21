@@ -9,6 +9,10 @@ class Game extends Phaser.Game {
       // TODO: tmp solution
       type: JSON.parse(window.localStorage.getItem('useWebGLRenderer')) ? Phaser.WEBGL : Phaser.CANVAS,
       scene: [BootScene, SpaceScene],
+      render: {
+        clearBeforeRender: false,
+        powerPreference: 'high-performance',
+      },
     }));
     this.storage = storage;
     this.client = client;
