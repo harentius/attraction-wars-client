@@ -28,9 +28,9 @@ class Planet {
     this.playerData = playerData;
     this.sprite = this.scene.add.sprite(playerData.x, playerData.y, `planet-${playerData.color}`);
     this.oldR = playerData.r;
-    this.scene.anims.create({ key: 'planet', frames: [ { key: `planet-${playerData.color}`, frame: 0 } ] });
+    this.scene.anims.create({ key: `planet-${playerData.color}`, frames: [{ key: `planet-${playerData.color}`, frame: 0 }] });
     this.scene.anims.create({
-      key: 'planet-grow',
+      key: `planet-grow-${playerData.color}`,
       duration: 500,
       frames: this.scene.anims.generateFrameNumbers(`planet-${playerData.color}`, {
         start: 1,
@@ -116,8 +116,8 @@ class Planet {
   }
 
   _animateGrow() {
-    this.sprite.anims.play('planet-grow');
-    this.sprite.anims.chain('planet');
+    this.sprite.anims.play(`planet-grow-${this.playerData.color}`);
+    this.sprite.anims.chain(`planet-${this.playerData.color}`);
   }
 
   _getStorage() {
