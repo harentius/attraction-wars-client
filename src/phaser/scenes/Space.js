@@ -26,15 +26,17 @@ class Space extends Phaser.Scene {
     this.load.image('background', require('../../../resources/phaser/images/space.png'));
 
     for (let i = 0; i < 10; i++) {
+      const img = require(`../../../resources/phaser/images/planets/${i}.png?size=2700`);
       this.load.spritesheet(
         `planet-${i}`,
-        require(`../../../resources/phaser/images/planets/${i}.png`),
-        { frameWidth: 1050, frameHeight: 1050 },
+        img.src,
+        { frameWidth: 300, frameHeight: 300 },
       );
     }
 
     for (let i = 0; i < 20; i++) {
-      this.load.image(`asteroid-${i}`, require(`../../../resources/phaser/images/asteroids/${i}.png`));
+      const img = require(`../../../resources/phaser/images/asteroids/${i}.png?size=200`);
+      this.load.image(`asteroid-${i}`, img.src);
     }
   }
 

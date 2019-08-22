@@ -57,7 +57,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(gif|svg)$/,
         use: [
           {
             loader: 'file-loader',
@@ -68,15 +68,10 @@ module.exports = {
         ],
       },
       {
-        test: /\.(svg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'icons/[hash].[ext]',
-            },
-          },
-        ],
+        test: /\.(jpe?g|png)$/i,
+        loader: 'responsive-loader',
+        options: {
+        },
       },
     ],
   },
