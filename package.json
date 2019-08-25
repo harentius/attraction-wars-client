@@ -36,7 +36,6 @@
     "file-loader": "^4.2.0",
     "html-webpack-partials-plugin": "^0.5.1",
     "html-webpack-plugin": "^4.0.0-beta.8",
-    "image-webpack-loader": "^5.0.0",
     "jimp": "^0.6.4",
     "node-sass": "^4.12.0",
     "phaser": "^3.19.0",

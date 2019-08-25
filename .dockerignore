@@ -1,5 +1,4 @@
 /.circleci
-/bin
 /dist
 /node_modules
 /.eslintrc.js
