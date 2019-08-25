@@ -70,6 +70,7 @@ class Space extends Phaser.Scene {
   }
 
   update() {
+    this._handleInput();
     this._updatePlayers();
     this._updateAsteroids();
 
@@ -81,7 +82,6 @@ class Space extends Phaser.Scene {
       asteroid.redraw();
     }
 
-    this._handleInput();
     this.player.redraw();
     const { worldView } = this.cameras.main;
     this.background.setTilePosition(worldView.centerX, worldView.centerY);
