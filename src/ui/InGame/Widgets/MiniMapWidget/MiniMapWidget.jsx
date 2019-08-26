@@ -13,7 +13,6 @@ class MiniMapWidget extends React.Component {
     };
 
     props.storage.on(Storage.UPDATE_SERVER_STATISTICS, (serverStatistics) => {
-      console.log(serverStatistics);
       this.setState({ onlineCount: serverStatistics.onlineCount });
     });
   }
