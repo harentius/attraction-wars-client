@@ -23,8 +23,7 @@ class ScoreWidget extends React.Component {
 
   render() {
     return (
-      <Widget title="Score" className="score-widget">
-        <p className="score">Score: { this.state.score }</p>
+      <Widget title={`Score ${this.state.score}`} className="score-widget">
         <p>Size: { this.state.size }</p>
       </Widget>
     );

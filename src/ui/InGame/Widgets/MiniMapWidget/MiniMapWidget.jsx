@@ -6,6 +6,17 @@ import updateMiniMap from './services/updateMiniMap';
 import './MiniMapWidget.scss';
 
 class MiniMapWidget extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      onlineCount: 0,
+    };
+
+    props.storage.on(Storage.UPDATE_SERVER_STATISTICS, (serverStatistics) => {
+      this.setState({ onlineCount: serverStatistics.onlineCount });
+    });
+  }
+
   componentDidMount() {
     this.updateMiniMap();
 
@@ -16,11 +27,13 @@ class MiniMapWidget extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
+    this.props.storage.off(Storage.UPDATE_SCORE);
   }
 
   render() {
     return (
-      <Widget title="Mini Map" className="in-game-widget minimap-widget">
+      <Widget className="in-game-widget minimap-widget">
+        <p>Online: {this.state.onlineCount}</p>
         <canvas id="minimap" className="minimap" width="300" height="300" />
       </Widget>
     );
