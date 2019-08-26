@@ -90,6 +90,7 @@ class LoginForm extends React.Component {
               />
               <div className="confirm-label">Use WebGL</div>
             </label>
+            <a target="_blank" rel="noopener noreferrer" href="https://forms.gle/uTNhXRTeMVygU6nKA">Feedback</a>
           </form>
         </Widget>
       </div>
