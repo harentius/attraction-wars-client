@@ -9,10 +9,11 @@ class MiniMapWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      onlineCount: 0,
+      onlineCount: props.storage.worldData.serverStatistics.onlineCount,
     };
 
     props.storage.on(Storage.UPDATE_SERVER_STATISTICS, (serverStatistics) => {
+      console.log(serverStatistics);
       this.setState({ onlineCount: serverStatistics.onlineCount });
     });
   }
@@ -27,7 +28,7 @@ class MiniMapWidget extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
-    this.props.storage.off(Storage.UPDATE_SCORE);
+    this.props.storage.off(Storage.UPDATE_SERVER_STATISTICS);
   }
 
   render() {

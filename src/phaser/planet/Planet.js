@@ -39,7 +39,7 @@ class Planet {
       repeat: 2,
     });
 
-    this.sprite.anims.play('planet', true);
+    this.sprite.anims.play(`planet-${playerData.color}`, true);
 
     for (let i = 0; i < Object.keys(this.relativeZonesSizes).length; i++) {
       const graphics = this.scene.add.graphics();
