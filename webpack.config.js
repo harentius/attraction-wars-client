@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
@@ -21,6 +22,9 @@ module.exports = {
       WEBGL_RENDERER: JSON.stringify(true),
       SERVER_URL: JSON.stringify(process.env.SERVER_URL),
     }),
+    new CopyPlugin([
+      { from: './resources/ui/favicon', to: './' },
+    ]),
     new HtmlWebpackPlugin({
       template: './src/templates/index.html',
     }),
