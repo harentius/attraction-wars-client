@@ -15,24 +15,13 @@ $login-form-transition: all 0.3s;
   position: relative;
 }
 
-%widget {
+.login-widget.widget {
   width: 90%;
   max-width: 500px;
   height: 90%;
   max-height: 450px;
   position: absolute;
   margin: 0 auto;
-}
-
-.widget-bg {
-  @extend %widget;
-  background: transparentize($color-page-background, 0.08);
-  box-shadow: 0 0 120px 20px #1f0540;
-  z-index: 200;
-}
-
-.login-widget.widget {
-  @extend %widget;
   padding: 50px;
   display: flex;
   flex-direction: column;

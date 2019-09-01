@@ -31,22 +31,22 @@
   }
 
   &:disabled {
-    background: desaturate($color-widget-bg, 75%);
+    background: desaturate($color-greyed-blue, 75%);
     cursor: not-allowed;
   }
 }
 
 %button-primary {
   @extend %button;
-  background: $color-widget-bg-dark;
+  background: $color-greyed-blue-dark;
   color: $color-widget-text;
 
   &:hover {
-    background: $color-widget-bg;
+    background: $color-greyed-blue;
   }
 
   &:disabled {
-    background: desaturate($color-widget-bg, 80%);
+    background: desaturate($color-greyed-blue, 80%);
     cursor: not-allowed;
   }
 }

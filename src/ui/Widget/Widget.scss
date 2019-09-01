@@ -1,12 +1,15 @@
 @import "../style/colors";
 @import "../style/mixins/widgetFrame";
 
+$widget-background: transparentize($color-widget-bg, 0.08);
+$widget-background-dark: transparentize($color-widget-bg-dark, 0.08);
+
 .widget {
   background: linear-gradient(
       0deg,
-      $color-widget-bg 0%,
-      $color-widget-bg-dark 50%,
-      $color-widget-bg 100%
+      $widget-background 0%,
+      $widget-background-dark 50%,
+      $widget-background 100%
   );
   padding: 20px;
   margin: 15px;
@@ -16,6 +19,7 @@
   color: $color-widget-text;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 0 120px 20px $color-widget-shadow;
 
   &:before {
     @include widgetFrame(90%, -5px, (top left));
