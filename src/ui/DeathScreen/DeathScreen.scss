@@ -1,0 +1,35 @@
+@import "../style/colors";
+@import "../style/buttons";
+
+.death-screen {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-page-background;
+}
+
+.widget-death-screen {
+  width: 600px;
+}
+
+.session-info {
+  font-size: 18px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+
+  .button-back-to-login {
+    @extend %button;
+    font-size: 15px;
+  }
+
+  .button-start-again {
+    @extend %button-primary;
+  }
+}

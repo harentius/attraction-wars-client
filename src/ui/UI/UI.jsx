@@ -6,6 +6,7 @@ import Client from '../../client/Client';
 import InGame from '../InGame/InGame/InGame.jsx';
 import Storage from '../../Storage';
 import Tutorial from '../Tutorial/Tutorial.jsx';
+import DeathScreen from '../DeathScreen/DeathScreen.jsx';
 
 class UI extends React.Component {
   constructor(props) {
@@ -13,23 +14,35 @@ class UI extends React.Component {
     this.state = {
       isLogged: false,
       isTutorial: false,
+      isDeathScreen: false,
+      deathScreenData: {
+        score: 0,
+        size: 0,
+      },
       name: '',
     };
 
     this.props.storage.on(Storage.CONNECT, () => {
       this.setState({
         isLogged: true,
+        isDeathScreen: false,
       });
     });
 
-    this.props.storage.on(Storage.DISCONNECT, () => {
+    this.props.storage.on(Storage.DISCONNECT, (playerData) => {
       this.setState({
         isLogged: false,
         isTutorial: false,
+        isDeathScreen: true,
+        deathScreenData: {
+          score: playerData.score,
+          size: playerData.r,
+        },
       });
     });
     this.onLoginFormSubmit = this.onLoginFormSubmit.bind(this);
     this.startGame = this.startGame.bind(this);
+    this.backToLogin = this.backToLogin.bind(this);
   }
 
   onLoginFormSubmit({ name, showTutorial }) {
@@ -47,10 +60,26 @@ class UI extends React.Component {
     this.props.client.login(this.state.name);
   }
 
+  backToLogin() {
+    this.setState({
+      isLogged: false,
+      isTutorial: false,
+      isDeathScreen: false,
+    });
+  }
+
   render() {
     return (
       <div className="page-container">
-        { !this.state.isLogged && !this.state.isTutorial &&
+        { this.state.isDeathScreen &&
+          <DeathScreen
+            onStartGame={this.startGame}
+            onBackToLogin={this.backToLogin}
+            {...this.state.deathScreenData}
+          />
+        }
+
+        { !this.state.isDeathScreen && !this.state.isLogged && !this.state.isTutorial &&
           <LoginForm client={this.props.client} onSubmit={this.onLoginFormSubmit} />
         }
 

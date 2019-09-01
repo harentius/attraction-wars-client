@@ -26,7 +26,7 @@ class Storage {
     playerData = {},
   ) {
     if (this._playerId) {
-      this.trigger(Storage.DISCONNECT);
+      this.trigger(Storage.DISCONNECT, [this.playerData]);
     }
 
     this.worldData = worldData;
