@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './LoginForm.scss';
 import Widget from '../Widget/Widget.jsx';
 import PlanetsOverlay from './PlanetsOverlay/PlanetsOverlay.jsx';
+import Feedback from '../Feedback/Feedback.jsx';
 
 const getBoolValFromStorage = (key, defaultValue = true) => (
   window.localStorage.getItem(key)
@@ -90,7 +91,7 @@ class LoginForm extends React.Component {
               />
               <div className="confirm-label">Use WebGL</div>
             </label>
-            <a target="_blank" rel="noopener noreferrer" href="https://forms.gle/uTNhXRTeMVygU6nKA">Feedback</a>
+            <Feedback />
           </form>
         </Widget>
       </div>

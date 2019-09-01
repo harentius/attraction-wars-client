@@ -15,24 +15,13 @@ $login-form-transition: all 0.3s;
   position: relative;
 }
 
-%widget {
+.login-widget.widget {
   width: 90%;
   max-width: 500px;
   height: 90%;
-  max-height: 395px;
+  max-height: 450px;
   position: absolute;
   margin: 0 auto;
-}
-
-.widget-bg {
-  @extend %widget;
-  background: transparentize($color-page-background, 0.08);
-  box-shadow: 0 0 120px 20px #1f0540;
-  z-index: 200;
-}
-
-.login-widget.widget {
-  @extend %widget;
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -58,7 +47,6 @@ $login-form-transition: all 0.3s;
 
 .name-label {
   text-align: center;
-  font-family: Chakra Petch, sans-serif;
   text-transform: uppercase;
   color: $color-widget-text;
   cursor: text;
@@ -77,7 +65,6 @@ $login-form-transition: all 0.3s;
   outline: 0;
   border-bottom: 1px solid $color-widget-border;
   font-size: 28px;
-  font-family: Chakra Petch, sans-serif;
   color: $color-widget-text;
   text-align: center;
   transition: $login-form-transition;
@@ -108,7 +95,6 @@ $login-form-transition: all 0.3s;
 
 .confirm-label {
   display: inline;
-  font-family: Chakra Petch, sans-serif;
 }
 
 .login-form-button {
