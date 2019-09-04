@@ -11,7 +11,7 @@ class Client {
   }
 
   connect() {
-    this.socket = io(config.serverUrl, { parser });
+    this.socket = io(config.serverUrl, { parser, transports: ['websocket'] });
 
     this.socket.on('fullWorldData', (data) => {
       this.storage.updateWorldData(data, true);
