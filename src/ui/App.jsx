@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Client from '../client/Client';
 import UI from './UI/UI.jsx';
-import Storage from '../Storage';
+import Storage from '../client/Storage';
 
 const App = (props) => <UI client={props.client} storage={props.storage} />;
 

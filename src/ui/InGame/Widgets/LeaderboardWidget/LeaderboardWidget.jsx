@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Storage from '../../../../Storage';
+import Storage from '../../../../client/Storage';
 import getLeaderboard from './services/getLeaderboard';
 import './LeaderboardWidget.scss';
 import Widget from '../../../Widget/Widget.jsx';

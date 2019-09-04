@@ -1,4 +1,4 @@
-import Storage from '../../Storage';
+import Storage from '../../client/Storage';
 import showScoreAcquiration from './showScoreAcquiration';
 
 const ZONE_LINE_WIDTH = 2;

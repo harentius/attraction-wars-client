@@ -1,5 +1,5 @@
 import './style.scss';
-import Storage from './Storage';
+import Storage from './client/Storage';
 import Client from './client/Client';
 import startUi from './ui/startUi.jsx';
 

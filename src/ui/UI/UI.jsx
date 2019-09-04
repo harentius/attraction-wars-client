@@ -4,7 +4,7 @@ import LoginForm from '../LoginForm/LoginForm.jsx';
 import './UI.scss';
 import Client from '../../client/Client';
 import InGame from '../InGame/InGame/InGame.jsx';
-import Storage from '../../Storage';
+import Storage from '../../client/Storage';
 import Tutorial from '../Tutorial/Tutorial.jsx';
 import DeathScreen from '../DeathScreen/DeathScreen.jsx';
 

@@ -1,4 +1,4 @@
-import config from './config';
+import config from '../config';
 
 class Storage {
   static get PLAYER_DATA_CREATED() { return 'player_data_created'; }

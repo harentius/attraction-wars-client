@@ -3,7 +3,7 @@ import config from '../../config';
 import Planet from '../planet/Planet';
 import KeysPressState from '../../client/KeysPressState';
 import Asteroid from '../asteroid/Asteroid';
-import Storage from '../../Storage';
+import Storage from '../../client/Storage';
 
 class Space extends Phaser.Scene {
   constructor() {
