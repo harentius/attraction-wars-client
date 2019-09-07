@@ -17,7 +17,6 @@ class UI extends React.Component {
       isLogged: false,
       isTutorial: false,
       isDeathScreen: false,
-      isGameStarted: false,
       deathScreenData: {
         score: 0,
         size: 0,
@@ -37,7 +36,6 @@ class UI extends React.Component {
         isLogged: false,
         isTutorial: false,
         isDeathScreen: true,
-        isGameStarted: false,
         deathScreenData: {
           score: playerData.score,
           size: playerData.r,
@@ -68,21 +66,12 @@ class UI extends React.Component {
   }
 
   startGame() {
-    if (this.state.isGameStarted) {
-      return;
-    }
-
-    this.setState({
-      isGameStarted: true,
-    });
-
     this.props.client.login(this.state.name);
   }
 
   backToLogin() {
     this.setState({
       isLogged: false,
-      isGameStarted: false,
       isTutorial: false,
       isDeathScreen: false,
     });

@@ -11,8 +11,46 @@ class Client {
     this.game = null;
   }
 
-  connect() {
-    this.socket = io(config.serverUrl, { parser, transports: ['websocket'] });
+  sendKeysPressState(keysPressState) {
+    this.socket.emit('keysPressState', keysPressState);
+  }
+
+  login(username) {
+    if (this.socket) {
+      return;
+    }
+
+    this._connect();
+    this.socket.emit('login', username);
+  }
+
+  _connect() {
+    this.socket = io(config.serverUrl, {
+      parser,
+      transports: ['websocket'],
+      reconnection: false,
+      timeout: 1500,
+    });
+
+    const handleConnectionError = () => {
+      if (this.game) {
+        this.game.destroy(true);
+      }
+
+      this.storage.refresh();
+      this.socket = null;
+      this.storage.trigger(Storage.NOTIFICATION, [{
+        type: 'error',
+        message: 'Server Connection Error. Please try again later',
+      }]);
+    };
+
+    this.socket.on('connect_error', () => {
+      handleConnectionError();
+    });
+    this.socket.on('connect_timeout', () => {
+      handleConnectionError();
+    });
 
     this.socket.on('fullWorldData', (data) => {
       this.storage.updateWorldData(data, true);
@@ -37,7 +75,7 @@ class Client {
     });
 
     this.socket.on('disconnect', () => {
-      this.disconnect();
+      this._disconnect();
     });
 
     this.socket.on('notification', (data) => {
@@ -45,19 +83,16 @@ class Client {
     });
   }
 
-  disconnect() {
+  _disconnect() {
     this.game.destroy(true);
     console.log('Log out');
     this.storage.refresh();
-  }
+    this.socket = null;
 
-  sendKeysPressState(keysPressState) {
-    this.socket.emit('keysPressState', keysPressState);
-  }
-
-  login(username) {
-    this.connect();
-    this.socket.emit('login', username);
+    this.storage.trigger(Storage.NOTIFICATION, [{
+      type: 'error',
+      message: 'Server Closed Connection. Please try again later',
+    }]);
   }
 }
 
