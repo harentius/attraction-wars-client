@@ -8,6 +8,7 @@ class Storage {
   static get UPDATE_SCORE() { return 'update_score'; }
   static get UPDATE_SERVER_STATISTICS() { return 'update_server_statistics'; }
   static get UPDATE_ZOOM() { return 'update_zoom'; }
+  static get NOTIFICATION() { return 'notification'; }
 
   constructor() {
     this._events = {};

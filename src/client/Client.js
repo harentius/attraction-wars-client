@@ -2,6 +2,7 @@ import io from 'socket.io-client';
 import parser from 'socket.io-msgpack-parser';
 import config from '../config';
 import Game from '../phaser/Game';
+import Storage from './Storage';
 
 class Client {
   constructor(storage) {
@@ -37,6 +38,10 @@ class Client {
 
     this.socket.on('disconnect', () => {
       this.disconnect();
+    });
+
+    this.socket.on('notification', (data) => {
+      this.storage.trigger(Storage.NOTIFICATION, [data]);
     });
   }
 

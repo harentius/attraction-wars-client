@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import LoginForm from '../LoginForm/LoginForm.jsx';
 import './UI.scss';
 import Client from '../../client/Client';
@@ -15,6 +17,7 @@ class UI extends React.Component {
       isLogged: false,
       isTutorial: false,
       isDeathScreen: false,
+      isGameStarted: false,
       deathScreenData: {
         score: 0,
         size: 0,
@@ -34,12 +37,20 @@ class UI extends React.Component {
         isLogged: false,
         isTutorial: false,
         isDeathScreen: true,
+        isGameStarted: false,
         deathScreenData: {
           score: playerData.score,
           size: playerData.r,
         },
       });
     });
+
+    this.props.storage.on(Storage.NOTIFICATION, (data) => {
+      toast(data.message, {
+        type: data.type,
+      });
+    });
+
     this.onLoginFormSubmit = this.onLoginFormSubmit.bind(this);
     this.startGame = this.startGame.bind(this);
     this.backToLogin = this.backToLogin.bind(this);
@@ -57,12 +68,21 @@ class UI extends React.Component {
   }
 
   startGame() {
+    if (this.state.isGameStarted) {
+      return;
+    }
+
+    this.setState({
+      isGameStarted: true,
+    });
+
     this.props.client.login(this.state.name);
   }
 
   backToLogin() {
     this.setState({
       isLogged: false,
+      isGameStarted: false,
       isTutorial: false,
       isDeathScreen: false,
     });
@@ -71,6 +91,7 @@ class UI extends React.Component {
   render() {
     return (
       <div className="page-container">
+        <ToastContainer />
         { this.state.isDeathScreen &&
           <DeathScreen
             onStartGame={this.startGame}
