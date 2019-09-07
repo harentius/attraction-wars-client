@@ -88,11 +88,6 @@ class Client {
     console.log('Log out');
     this.storage.refresh();
     this.socket = null;
-
-    this.storage.trigger(Storage.NOTIFICATION, [{
-      type: 'error',
-      message: 'Server Closed Connection. Please try again later',
-    }]);
   }
 }
 
