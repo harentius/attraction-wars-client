@@ -1,14 +1,12 @@
 import io from 'socket.io-client';
 import parser from 'socket.io-msgpack-parser';
-import config from '../config';
-import Game from '../phaser/Game';
 import Storage from './Storage';
 
 class Client {
-  constructor(storage) {
-    this.socket = null;
+  constructor(storage, serverUrl) {
     this.storage = storage;
-    this.game = null;
+    this.serverUrl = serverUrl;
+    this.socket = null;
   }
 
   sendKeysPressState(keysPressState) {
@@ -25,7 +23,7 @@ class Client {
   }
 
   _connect() {
-    this.socket = io(config.serverUrl, {
+    this.socket = io(this.serverUrl, {
       parser,
       transports: ['websocket'],
       reconnection: false,
@@ -33,12 +31,7 @@ class Client {
     });
 
     const handleConnectionError = () => {
-      if (this.game) {
-        this.game.destroy(true);
-      }
-
-      this.storage.refresh();
-      this.socket = null;
+      this._disconnect();
       this.storage.trigger(Storage.NOTIFICATION, [{
         type: 'error',
         message: 'Server Connection Error. Please try again later',
@@ -62,7 +55,6 @@ class Client {
 
     this.socket.on('playerData', (data) => {
       this.storage.updatePlayerData(data);
-      this.game = new Game(this.storage, this);
     });
 
     this.socket.on('asteroidData', (data) => {
@@ -83,7 +75,6 @@ class Client {
   }
 
   _disconnect() {
-    this.game.destroy(true);
     this.storage.refresh();
     this.socket = null;
   }
