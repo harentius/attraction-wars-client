@@ -1,7 +1,6 @@
-import config from '../config';
-
 class Storage {
   static get PLAYER_DATA_CREATED() { return 'player_data_created'; }
+  static get PLAYER_DATA_RECEIVED() { return 'player_data_received'; }
   static get WORLD_DATA_CREATED() { return 'world_data_created'; }
   static get CONNECT() { return 'connect'; }
   static get DISCONNECT() { return 'disconnect'; }
@@ -86,19 +85,8 @@ class Storage {
         ]);
       }
 
-      if (worldData.playersData[this._playerId].r * this.zoom > config.maxVisibleSize
-        && this.zoom - config.zoomChange >= config.minZoom
-      ) {
-        this.setZoom(this.zoom - config.zoomChange);
-      }
-
-      if (worldData.playersData[this._playerId].r * this.zoom < config.minVisibleSize
-        && this.zoom + config.zoomChange <= config.maxZoom
-      ) {
-        this.setZoom(this.zoom + config.zoomChange);
-      }
-
       Object.assign(this.playerData, worldData.playersData[this._playerId]);
+      this.trigger(Storage.PLAYER_DATA_RECEIVED, [worldData.playersData[this._playerId]]);
     }
 
     // Asteroids Data sync

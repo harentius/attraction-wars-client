@@ -61,7 +61,6 @@ class Client {
     });
 
     this.socket.on('playerData', (data) => {
-      console.log(`Logged as ${data.username}`);
       this.storage.updatePlayerData(data);
       this.game = new Game(this.storage, this);
     });
@@ -85,7 +84,6 @@ class Client {
 
   _disconnect() {
     this.game.destroy(true);
-    console.log('Log out');
     this.storage.refresh();
     this.socket = null;
   }
