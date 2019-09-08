@@ -14,6 +14,7 @@ class Space extends Phaser.Scene {
     this.previousKeysPressState = new KeysPressState();
     this.keysPressState = new KeysPressState();
     this.cursors = null;
+    this.wasdCursors = null;
     this.background = null;
   }
 
@@ -56,6 +57,12 @@ class Space extends Phaser.Scene {
     this.background.setDepth(-1000);
 
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.wasdCursors = this.input.keyboard.addKeys({
+      up: Phaser.Input.Keyboard.KeyCodes.W,
+      down: Phaser.Input.Keyboard.KeyCodes.S,
+      left: Phaser.Input.Keyboard.KeyCodes.A,
+      right: Phaser.Input.Keyboard.KeyCodes.D,
+    });
 
     this.player.spawn(storage.playerData);
 
@@ -91,11 +98,10 @@ class Space extends Phaser.Scene {
 
   _handleInput() {
     Object.assign(this.previousKeysPressState, this.keysPressState);
-
-    this.keysPressState.up = this.cursors.up.isDown;
-    this.keysPressState.down = this.cursors.down.isDown;
-    this.keysPressState.left = this.cursors.left.isDown;
-    this.keysPressState.right = this.cursors.right.isDown;
+    this.keysPressState.up = this.cursors.up.isDown || this.wasdCursors.up.isDown;
+    this.keysPressState.down = this.cursors.down.isDown || this.wasdCursors.down.isDown;
+    this.keysPressState.left = this.cursors.left.isDown || this.wasdCursors.left.isDown;
+    this.keysPressState.right = this.cursors.right.isDown || this.wasdCursors.right.isDown;
     this.keysPressState.space = this.cursors.space.isDown;
 
     if (!this.keysPressState.isEqual(this.previousKeysPressState)) {
