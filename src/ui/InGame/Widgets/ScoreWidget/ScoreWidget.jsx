@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Storage from '../../../../client/Storage';
+import Storage from 'attraction-wars-client-storage/src/Storage';
 import './ScoreWidget.scss';
 import Widget from '../../../Widget/Widget.jsx';
 

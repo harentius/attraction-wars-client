@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Client from 'attraction-wars-client-storage/src/Client';
+import Storage from 'attraction-wars-client-storage/src/Storage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoginForm from '../LoginForm/LoginForm.jsx';
 import './UI.scss';
-import Client from '../../client/Client';
 import InGame from '../InGame/InGame/InGame.jsx';
-import Storage from '../../client/Storage';
 import Tutorial from '../Tutorial/Tutorial.jsx';
 import DeathScreen from '../DeathScreen/DeathScreen.jsx';
 

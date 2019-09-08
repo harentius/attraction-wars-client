@@ -1,4 +1,4 @@
-import Storage from '../../client/Storage';
+import Storage from 'attraction-wars-client-storage/src/Storage';
 import showScoreAcquiration from './showScoreAcquiration';
 
 const ZONE_LINE_WIDTH = 2;

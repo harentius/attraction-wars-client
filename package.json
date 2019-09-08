@@ -26,6 +26,7 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "attraction-wars-client-storage": "git+https://github.com/harentius/attraction-wars-client-storage.git",
     "autoprefixer": "^9.6.1",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.6",

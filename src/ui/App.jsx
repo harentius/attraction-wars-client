@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Client from '../client/Client';
+import Client from 'attraction-wars-client-storage/src/Client';
+import Storage from 'attraction-wars-client-storage/src/Storage';
 import UI from './UI/UI.jsx';
-import Storage from '../client/Storage';
 
 const App = (props) => <UI client={props.client} storage={props.storage} />;
 

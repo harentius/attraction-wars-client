@@ -1,9 +1,10 @@
 import Phaser from 'phaser';
+import KeysPressState from 'attraction-wars-client-storage/src/KeysPressState';
+import Storage from 'attraction-wars-client-storage/src/Storage';
 import config from '../../config';
 import Planet from '../planet/Planet';
-import KeysPressState from '../../client/KeysPressState';
 import Asteroid from '../asteroid/Asteroid';
-import Storage from '../../client/Storage';
+
 
 class Space extends Phaser.Scene {
   constructor() {

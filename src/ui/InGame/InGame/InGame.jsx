@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Storage from 'attraction-wars-client-storage/src/Storage';
 import ScoreWidget from '../Widgets/ScoreWidget/ScoreWidget.jsx';
-import Storage from '../../../client/Storage';
 import './InGame.scss';
 import LeaderboardWidget from '../Widgets/LeaderboardWidget/LeaderboardWidget.jsx';
 import MinimapWidget from '../Widgets/MiniMapWidget/MiniMapWidget.jsx';

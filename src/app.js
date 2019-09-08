@@ -1,6 +1,6 @@
+import Client from 'attraction-wars-client-storage/src/Client';
+import Storage from 'attraction-wars-client-storage/src/Storage';
 import './style.scss';
-import Storage from './client/Storage';
-import Client from './client/Client';
 import startUi from './ui/startUi.jsx';
 import config from './config';
 import Game from './phaser/Game';
