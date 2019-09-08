@@ -2,7 +2,7 @@ FROM node:12.8-alpine AS build
 
 ARG SERVER_URL
 
-RUN apk add pngquant
+RUN apk add pngquant git
 
 WORKDIR /app
 
