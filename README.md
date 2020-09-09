@@ -3,7 +3,7 @@ Attraction Wars game client
 
 [![Build Status](https://travis-ci.org/harentius/attraction-wars-client.svg?branch=master)](https://travis-ci.org/harentius/attraction-wars-client)
 
-Attraction Wars - is online browser game, written on typescript.  
+Attraction Wars - is online browser game, backend written on typescript, client (this project) written on javascript and [Phaser](https://phaser.io/) framework.  
 ![GitHub Logo](https://folkprog.net/assets/images/Screenshot%20from%202020-03-09%2021-22-46_1.png)  
 *Note: More information about it: [https://folkprog.net/attraction-wars-game/](https://folkprog.net/attraction-wars-game/)*  
 Demo: [https://aw.folkprog.net/](https://aw.folkprog.net/)  
