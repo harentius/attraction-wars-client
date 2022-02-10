@@ -39,7 +39,7 @@
     "html-webpack-partials-plugin": "^0.5.1",
     "html-webpack-plugin": "^4.0.0-beta.8",
     "jimp": "^0.6.4",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "phaser": "^3.19.0",
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.7.2",
