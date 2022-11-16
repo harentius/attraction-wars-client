@@ -53,6 +53,6 @@
     "terser-webpack-plugin": "^1.4.1",
     "webfontloader": "^1.6.28",
     "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.6"
+    "webpack-cli": "^3.3.12"
   }
 }
